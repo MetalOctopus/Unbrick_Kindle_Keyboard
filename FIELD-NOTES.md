@@ -278,6 +278,29 @@ confusion) and carries a verbose, **DIY-first** "not signed by a registered deve
 use-the-right-KUAL → reboot-twice DevCerts → WiFi clock sync → Hotfix, stop when it opens.
 None of these require an LLM or a shell.
 
-> **Status:** Step 5 cert error diagnosed; re-signed KUAL swapped onto the device + all
-> research mirrored and documented. **Awaiting on-device retest** of KUAL (does the menu open
-> now?). If the re-signed KUAL alone doesn't do it, next levers are clock sync, then Hotfix.
+### RESOLVED — it was the cert *family*, not the clock
+We checked the clock first (cheap, non-destructive): the Kindle had written its Search Index
+files at the correct real time (2026-06-25 ~15:45), so its clock was **fine**. Clock theory
+dead.
+
+The actual fix: the KindleModding re-signed KUAL we tried first is signed for the **Hotfix's**
+keys, not for NiLuJe's DevCerts — wrong family. We had installed **DevCerts**, so we needed
+**NiLuJe's** matching KUAL. Fetched `KUAL-v2.7.37-gfcb45b5-20250419` (from NiLuJe's `KUAL/`,
+dated 2025-04-19 — same day as DevCerts-20250419), extracted its `KUAL-KDK-1.0.azw2`
+(131,069 B, sha256 `70c301f2…`), copied it into `documents/`, restarted, opened KUAL →
+**menu opened. Step 5 CONFIRMED.** The whole jailbreak → MKK → DevCerts chain is proven.
+
+**The rule, stated once:** the KUAL build and the installed keystore must come from the same
+source/era. Two valid combos — NiLuJe DevCerts + NiLuJe 2025 KUAL (what we used, K3-proven),
+or KindleModding Hotfix + KindleModding KUAL. **Mixing them gives "not signed by a registered
+developer."** Three KUAL files that look interchangeable but aren't: 127,808 B (2022, expired
+cert), 131,667 B (KindleModding/Hotfix family), 131,069 B (NiLuJe/DevCerts family ← ours).
+
+Guide impact: flipped README + guide.html Step 5 to point at `mirror/niluje/KUAL-KDK-1.0.azw2`,
+rewrote the warning around the family rule (not just "use a newer one"), and demoted the
+KindleModding KUAL/Hotfix to a documented alternative path. Mirrored the NiLuJe 2.7.37 tarball
++ extracted azw2.
+
+> **Status:** Steps 1–5 CONFIRMED on-device. KUAL launches. Next: Step 6 (MRPI) / Step 7
+> (KOReader) — and we'll test whether MRPI is actually needed for KOReader or is a skippable
+> step on this path.

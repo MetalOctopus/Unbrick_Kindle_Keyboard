@@ -110,7 +110,7 @@ Everything is stored in this repository so it can't disappear on you. **Click to
 | Step 1 | **[Jailbreak file](mirror/niluje/kindle-jailbreak-0.13.N-r18833.tar.xz)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 2 | **[MKK file](mirror/niluje/kindle-mkk-20141129-r18833.tar.xz)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 3 | **[DevCerts file](mirror/devcerts/DevCerts-20250419-KeyStore.zip)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
-| Step 5 | **[KUAL app (KUAL-KDK-1.0.azw2)](mirror/kindlemodding/KUAL-KDK-1.0.azw2)** | [KindleModding](https://kindlemodding.org/jailbreaking/post-jailbreak/installing-kual-mrpi/) |
+| Step 5 | **[KUAL app (KUAL-KDK-1.0.azw2)](mirror/niluje/KUAL-KDK-1.0.azw2)** — NiLuJe 2025, matches DevCerts ✅ | [NiLuJe (MobileRead)](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 6 | **[MRPI file](mirror/niluje/kual-mrinstaller-1.7.N-r18983.tar.xz)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 7 | **[KOReader file](mirror/koreader/koreader-kindle-legacy-v2026.03.zip)** | [KOReader downloads](https://github.com/koreader/koreader/releases) |
 | Step 8 | **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)** | [Plugin downloads](https://github.com/fischer-hub/annas.koplugin/releases) |
@@ -216,22 +216,27 @@ WiFi, as extra insurance.)*
 **What it does:** adds a little app-launcher to your Kindle. **This is the exciting one** —
 when it opens, it proves Steps 1–3 all worked.
 
-> ### ⚠️ Use the KUAL file from THIS repo — not one you found elsewhere
-> This is the #1 trap on the Kindle 3. **Most KUAL copies on the internet — including older
-> forum bundles and other guides — are signed with a developer certificate that EXPIRED on
-> April 17, 2025.** Load one of those and KUAL will refuse to open with *"This title is not
-> signed by a registered developer,"* even if every other step was perfect.
+> ### ⚠️ The KUAL file must MATCH the certificates from Step 3 — this is the #1 K3 trap
+> KUAL is a signed app. Your Kindle will only run it if its signature matches the
+> certificates you installed. **These steps install NiLuJe's DevCerts (Step 3), so you must
+> use NiLuJe's matching KUAL here.** Use the wrong one and KUAL appears in your book list but
+> refuses to open with *"This title is not signed by a registered developer."*
 >
-> **So: only use [`KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2) from this
-> repo's `mirror/kindlemodding/` folder.** It's the re-signed, up-to-date version.
+> **✅ Use exactly this file:** **[`KUAL-KDK-1.0.azw2`](mirror/niluje/KUAL-KDK-1.0.azw2)** from
+> this repo's **`mirror/niluje/`** folder (NiLuJe's 2025 build, ~131.0 KB). **This is the one
+> we confirmed works on a real B006 / firmware 3.4.3 Kindle.** It's a single file — no unzipping.
 >
-> **How to tell if you grabbed a bad one:** right-click the file → Properties and check the
-> size. The **correct** file is **131,667 bytes** (~129 KB) and is the single `.azw2` linked
-> above. The common **broken** one is **127,808 bytes** and comes out of a 2022 `KUAL-v2.7.29…`
-> ZIP — if you see that, you have the wrong file. (Also: pick **`KUAL-KDK-1.0.azw2`**, the
-> `1.0` — a `2.0` exists but is for newer Kindles, not the K3.)
+> **Two files that look right but FAIL** (don't use these with this guide):
+> - The **2022 KUAL** (`~127.8 KB`, from a `KUAL-v2.7.29…` ZIP) — signed with a cert that
+>   **expired April 17, 2025**.
+> - **KindleModding's KUAL** (`~131.7 KB`, in `mirror/kindlemodding/`) — signed with a
+>   *different* set of keys that only work if you used the **Hotfix** instead of DevCerts. Right
+>   idea, wrong family for this guide.
+>
+> Bottom line: **the file in `mirror/niluje/` goes with the DevCerts in `mirror/devcerts/`.**
+> Don't mix sources. (And pick the `1.0`, not the `2.0` — `2.0` is for newer Kindles.)
 
-1. Download **[`KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2)** (from this repo —
+1. Download **[`KUAL-KDK-1.0.azw2`](mirror/niluje/KUAL-KDK-1.0.azw2)** (from `mirror/niluje/` —
    see the warning above). It's a single file — **no unzipping needed.**
 2. Plug in the Kindle, and copy that file **into the `documents` folder** on the Kindle.
    ⚠️ This is the one step that does **not** use the root — it goes *inside* `documents`,
@@ -239,38 +244,37 @@ when it opens, it proves Steps 1–3 all worked.
 3. Safely eject, unplug. On the Kindle, go to **Home**. You'll see a new "book" in your list
    called **KUAL**. **Open it like a book** (select it, press the center button).
 
-**✅ What success looks like:** instead of a book, a **menu** opens. 🎉 That's KUAL — and it
-means your jailbreak, MKK, and certificates are all working. This is the big "it's alive" moment.
+**✅ What success looks like:** instead of a book, a small **menu** opens (you'll see a "KUAL"
+heading, maybe a collapsed arrow, and "Quit"). 🎉 That's KUAL working — and it proves your
+jailbreak, MKK, and certificates are all good. **The menu looking nearly empty is normal** —
+it fills up as you install KOReader in the next steps. This is the big "it's alive" moment.
 
 > ### 😟 If you see "This title is not signed by a registered developer"
-> This is the most common K3 snag, and it's fixable. It means the Kindle can't validate
-> KUAL's signature. Work through these in order — **stop as soon as KUAL opens:**
+> The Kindle can't validate KUAL's signature. Work through these in order — **stop as soon as
+> KUAL opens.** (On our device, #1 was the fix.)
 >
-> 1. **Make sure you used the KUAL file linked above** (the `KUAL-KDK-1.0.azw2` from this
->    repo's `mirror/kindlemodding/`). Older KUAL versions floating around the web are signed
->    with a certificate that **expired in April 2025**, so they fail this exact way even when
->    everything else is correct. Delete the KUAL file from `documents`, copy *this* one in,
->    then **restart the Kindle** (hold the power switch ~30 seconds) and open KUAL again.
-> 2. **Re-do Step 3 (DevCerts), and reboot twice.** On the K3, a `.bin` update sometimes
->    *looks* like it installed (the file disappears) but didn't fully apply. Copy the Step 3
->    keystore file to the root again, run "Update Your Kindle," let it reboot — then reboot
->    **once more** by holding power. Open KUAL again.
-> 3. **Fix the Kindle's clock.** Security certificates are only valid between two dates, and
->    an old Kindle that's been off for years often has a badly wrong clock — if it thinks the
->    year is 1970 or 2010, a 2025 certificate looks "not yet valid" and you get this error.
->    **DIY fix:** turn the Kindle's WiFi on and connect it to your phone hotspot for a minute
->    or two so it can set its own clock from the internet, then open KUAL again. (Turn
->    Airplane Mode off first; turn it back on afterward.)
-> 4. **Last resort — the modern "Hotfix."** If none of the above works, there's a newer
->    community fix that installs date-proof certificates:
->    [`Update_hotfix_universal.bin`](mirror/kindlemodding/Update_hotfix_universal.bin). Copy
->    it to the **root**, run "Update Your Kindle," reboot, then re-open KUAL. *(Note: this
->    Hotfix is well-tested on newer Kindles but only lightly tested on the K3 — try steps 1–3
->    first.)*
+> 1. **Use the matching KUAL** — the [`KUAL-KDK-1.0.azw2` from `mirror/niluje/`](mirror/niluje/KUAL-KDK-1.0.azw2),
+>    **not** an older copy and **not** the one in `mirror/kindlemodding/`. See the warning box
+>    above for why. Delete the KUAL file from `documents`, copy this one in, then **restart the
+>    Kindle** (hold power ~30 s) and open KUAL again. **This is the most common fix.**
+> 2. **Re-do Step 3 (DevCerts) and reboot twice.** On the K3 a `.bin` update sometimes *looks*
+>    installed (the file disappears) but didn't fully apply. Re-copy the Step 3 keystore file to
+>    the root, run "Update Your Kindle," let it reboot — then hold power to reboot **once more**.
+>    Open KUAL again.
+> 3. **Check the Kindle's clock.** Certificates are only valid between two dates; a Kindle that
+>    sat dead for years can have a wildly wrong clock, making a 2025 cert look "not yet valid."
+>    **DIY fix (no computer):** turn Airplane Mode off and connect WiFi to your phone hotspot for
+>    a minute so it sets its own date, then reopen KUAL. *(On our device the clock was already
+>    correct, so this wasn't our problem — but it is for some.)*
+> 4. **Last resort — the modern "Hotfix" path.** A newer community fix installs date-proof
+>    certificates: [`Update_hotfix_universal.bin`](mirror/kindlemodding/Update_hotfix_universal.bin).
+>    If you go this route, you must also use the **KindleModding** KUAL
+>    ([`mirror/kindlemodding/KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2)) — they're
+>    the same family. Copy the hotfix to the **root**, "Update Your Kindle," reboot, then use the
+>    KindleModding KUAL. *(Well-tested on newer Kindles, only lightly tested on the K3 — try 1–3 first.)*
 >
-> **Other KUAL problems:** blank screen / crash → Step 2 (MKK) didn't take, redo it. KUAL not
-> in your book list at all → the file went to the root instead of `documents`; move it and
-> restart the Kindle.
+> **Other KUAL problems:** blank screen / crash → Step 2 (MKK) didn't take, redo it. KUAL not in
+> your book list at all → the file went to the root instead of `documents`; move it and restart.
 
 ### Step 6 — MRPI (lets the menu install bigger apps)
 **What it does:** a helper so KUAL can install KOReader next.
