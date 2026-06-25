@@ -14,7 +14,9 @@ will outlive their software's hosting; this folder is the insurance.
 | `niluje/kindle-jailbreak-0.13.N-r18833.tar.xz` | 1 | NiLuJe's jailbreak | **All** legacy models (K2/DX/DXG/**K3**), all firmware |
 | `niluje/kindle-mkk-20141129-r18833.tar.xz` | 2 | MobileRead Kindlet Kit (run Java apps) | All K3 variants |
 | `devcerts/DevCerts-20250419-KeyStore.zip` | 3 | **Updated dev certs** (originals expired 2025-04-17) | All K3 variants + K2/DX/K4/K5 |
-| `niluje/KUAL-v2.7.29-g7750a3a-20221017.tar.xz` | 5 | KUAL app launcher (has `KUAL-KDK-1.0.azw2`) | K3 legacy |
+| `kindlemodding/KUAL-KDK-1.0.azw2` | 5 | **KUAL app launcher (re-signed, 2025) — USE THIS** | K3 legacy |
+| `niluje/KUAL-v2.7.29-g7750a3a-20221017.tar.xz` | 5 | KUAL bundle (2022; its `KUAL-KDK-1.0.azw2` is signed with the **expired** cert — kept for reference only) | K3 legacy |
+| `kindlemodding/Update_hotfix_universal.bin` | 5 (fallback) | Modern Hotfix 2.5.0 — date-proof certs; backup fix for the cert error | all (K3 lightly tested) |
 | `niluje/kual-mrinstaller-1.7.N-r18983.tar.xz` | 6 | MRPI package installer | K3 (has `bin/K3/`) |
 | `koreader/koreader-kindle-legacy-v2026.03.zip` | 7 | KOReader reader (modern TLS, OPDS) | `kindle-legacy` = K2–K4 |
 | `annas-koplugin/annas.koplugin-v0.1.8.zip` | 8 | Anna's Archive search/download plugin | any KOReader |
@@ -47,6 +49,13 @@ Check **Home → Menu → Settings** on the Kindle; note the serial prefix and f
   is the authoritative source.
 - **`koreader/`** — KOReader `v2026.03`, the `kindle-legacy` build, from the official
   GitHub release (`github.com/koreader/koreader/releases`).
+- **`kindlemodding/`** — retrieved 2026-06-25. `KUAL-KDK-1.0.azw2` (131,667 B) from
+  KindleModding's install-KUAL guide (`kindlemodding.org/jailbreaking/post-jailbreak/installing-kual-mrpi/`)
+  — this is the **re-signed** KUAL that works with the 2025 keystore; the older NiLuJe 2022
+  KUAL throws "not signed by a registered developer" because its signing cert expired
+  2025-04-17. `Update_hotfix_universal.bin` (Hotfix 2.5.0, 3,743,762 B) from
+  `github.com/KindleModding/Hotfix` releases — a backup cert fix that installs certs valid
+  1970–9999 (clock-drift-proof); only lightly tested on K3.
 - **`annas-koplugin/`** — `v0.1.8` from the upstream GitHub release
   (`github.com/fischer-hub/annas.koplugin/releases`). Note: this release zip already
   extracts to a correctly-named `annas.koplugin/` folder (no version-suffix rename needed).

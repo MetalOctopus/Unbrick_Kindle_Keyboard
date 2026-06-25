@@ -239,3 +239,45 @@ step and the assistant can do it without the user touching the device.
 > (sha256 `933e55a5…`) copied into **`documents/`** (NOT root — KUAL is opened like a book,
 > not flashed). Awaiting the user opening KUAL from Home: a menu = the whole jailbreak/MKK/
 > cert chain is proven. Then Step 6 (MRPI), 7 (KOReader), 8 (Anna's plugin).
+
+---
+
+## Chapter 3 — Step 5's wall: "This title is not signed by a registered developer"
+
+KUAL appeared on Home, but opening it threw **"This title is not signed by a registered
+developer."** Everything upstream (jailbreak, MKK, DevCerts) had reported success, so this
+was a genuine head-scratcher. We researched it against 2025–2026 sources (MobileRead threads
+t=366862 / t=370873, the dast.org B006/3.4.3 walkthrough, KindleModding) instead of guessing.
+
+### Root cause: we paired a 2022 KUAL with 2025 certificates
+The KUAL bundle on NiLuJe's *current public OVH index* is `KUAL-v2.7.29-…-20221017` (2022).
+Its `KUAL-KDK-1.0.azw2` is signed with the developer cert that **expired 2025-04-17**. The
+`DevCerts-20250419` keystore we installed at Step 3 *rotated* that cert — so the old KUAL is
+now signed by a key the device no longer trusts. **The KUAL build and the installed keystore
+have to be the same era.** Using a 2022 KUAL with a 2025 keystore is the trap, and it's an
+easy one to fall into because the public index still serves the 2022 bundle.
+
+**Fix:** the re-signed `KUAL-KDK-1.0.azw2` (131,667 B) that KindleModding serves from its
+install-KUAL guide, vs. the stale 127,808 B 2022 one. Mirrored to
+`mirror/kindlemodding/KUAL-KDK-1.0.azw2`; swapped it into `documents/` (sha256 `70ed7310…`).
+
+### Two other real causes worth knowing (folded into the README troubleshooting)
+- **`.bin` that "applied" but didn't.** The K3 will happily consume a keystore `.bin` (it
+  vanishes from root) while the update silently no-ops. The dast.org author — *same device,
+  same error* — had to re-run the update and **reboot twice**. So "the file disappeared" is
+  weaker evidence than we treated it as; a reboot-twice retry is cheap insurance.
+- **Clock drift.** Cert validation checks today's date against the cert's validity window. A
+  K3 that's been off for years can think it's 1970/2010, making a 2025 cert "not yet valid"
+  → same error. DIY fix (no shell needed): connect WiFi to a hotspot for a minute so it
+  NTP-syncs. The modern KindleModding **Hotfix 2.5.0** sidesteps this entirely by installing
+  certs valid 1970–9999; mirrored as a fallback at `mirror/kindlemodding/Update_hotfix_universal.bin`.
+
+### Guide impact
+README Step 5 now points at the re-signed single-file KUAL (no unzip, no 1.0-vs-2.0
+confusion) and carries a verbose, **DIY-first** "not signed by a registered developer" box:
+use-the-right-KUAL → reboot-twice DevCerts → WiFi clock sync → Hotfix, stop when it opens.
+None of these require an LLM or a shell.
+
+> **Status:** Step 5 cert error diagnosed; re-signed KUAL swapped onto the device + all
+> research mirrored and documented. **Awaiting on-device retest** of KUAL (does the menu open
+> now?). If the re-signed KUAL alone doesn't do it, next levers are clock sync, then Hotfix.
