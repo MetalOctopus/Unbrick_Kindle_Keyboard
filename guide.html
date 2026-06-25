@@ -107,7 +107,8 @@
             </tbody>
         </table>
         <p>Firmware version is at the bottom of the Settings screen (e.g. <code>Kindle 3.4.3</code>). This guide covers <strong>3.0 through 3.4.3</strong>.</p>
-        <p style="margin-top: 1rem;"><strong>You need:</strong> USB micro-B cable, a computer, ~30 minutes. All downloads from <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's MobileRead Snapshot Thread</a> plus KOReader GitHub releases.</p>
+        <p style="margin-top: 1rem;"><strong>You need:</strong> USB micro-B cable, a computer, ~30 minutes.</p>
+        <div class="outcome outcome-success" style="margin-top: 1rem;"><strong>Good news &mdash; you don't have to hunt for anything.</strong> Every file this guide uses is mirrored, verified, and checksummed in the <code class="path">mirror/</code> folder of this repository. You can complete the whole process from that folder alone &mdash; no forum account, no dead links. Original sources are still linked at each step in case you'd rather grab them fresh. Check integrity with <code>sha256sum -c SHA256SUMS</code> inside <code class="path">mirror/</code>.</p>
     </div>
 
     <!-- STEP 1 -->
@@ -141,7 +142,7 @@ Update_jailbreak_0.13.N_k3gb_install.bin   B00A (K3 3G Intl)</pre>
         <div class="step-header"><div class="step-number">2</div><h3>Install MKK (MobileRead Kindlet Kit)</h3></div>
         <div class="step-body">
             <p>Required on K3 (pre-K5 device) to run Java Kindlets like KUAL.</p>
-            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kindle-mkk-20141129-r18833.tar.xz</a></p>
+            <p><strong>Download:</strong> <code>kindle-mkk-20141129-r18833.tar.xz</code> &mdash; mirrored at <code class="path">mirror/niluje/</code> (original: <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's thread</a>). Your K3 file inside is <code>Update_mkk-20141129-k3g-B006_install.bin</code> (matching your serial; <code>k3w</code>/<code>k3gb</code> for B008/B00A).</p>
             <ol>
                 <li>Extract with 7-Zip (tar.xz, may need two rounds). Find correct <code>.bin</code>:
                     <pre>Update_mkk-20141129-k3g-B006_install.bin   B006
@@ -160,12 +161,12 @@ Update_mkk-20141129-k3gb-B00A_install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">3</div><h3>Install Updated Developer Certificates</h3></div>
         <div class="step-body">
             <p>Original dev certs <strong>expired April 17, 2025</strong>. Without this, KUAL won't launch. Mandatory.</p>
-            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">DevCerts-20250419-KeyStore.zip</a></p>
+            <p><strong>Download:</strong> <code>DevCerts-20250419-KeyStore.zip</code> &mdash; mirrored at <code class="path">mirror/devcerts/</code> (original: a <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">MobileRead t=225030 attachment</a>).</p>
             <ol>
-                <li>Extract. Find correct <code>.bin</code>:
-                    <pre>Update_mkk-20250419-k3g-B006_keystore-install.bin   B006
-Update_mkk-20250419-k3w-B008_keystore-install.bin   B008
-Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
+                <li>Extract. Find correct <code>.bin</code> &mdash; note the K3 files use a <strong>hyphen</strong> after <code>Update</code> (<code>Update-mkk</code>, not <code>Update_mkk</code>):
+                    <pre>Update-mkk-20250419-k3g-B006_keystore-install.bin   B006
+Update-mkk-20250419-k3w-B008_keystore-install.bin   B008
+Update-mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
                 </li>
                 <li>USB &rarr; copy to root &rarr; eject &rarr; <strong>"Update Your Kindle"</strong></li>
             </ol>
@@ -194,7 +195,7 @@ Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">5</div><h3>Install KUAL (App Launcher)</h3></div>
         <div class="step-body">
             <p>KUAL appears as a "book" in your library. Opening it launches a menu for KOReader and other homebrew.</p>
-            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">KUAL-v2.7.37</a> &mdash; extract it, you need <code>KUAL-KDK-1.0.azw2</code> (the legacy variant).</p>
+            <p><strong>Download:</strong> <code>KUAL-v2.7.29-g7750a3a-20221017.tar.xz</code> &mdash; mirrored at <code class="path">mirror/niluje/</code> (original: <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's thread</a>). Extract it; you need <code>KUAL-KDK-1.0.azw2</code> (the legacy variant &mdash; the archive also has a <code>2.0</code>; use <strong>1.0</strong> on the K3).</p>
             <ol>
                 <li>USB &rarr; copy <code>KUAL-KDK-1.0.azw2</code> into <code class="path">documents/</code> on the Kindle.</li>
                 <li>Eject. Go to <kbd>Home</kbd>. You should see <strong>KUAL</strong> as a book.</li>
@@ -212,7 +213,7 @@ Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">6</div><h3>Install MRPI (Package Installer)</h3></div>
         <div class="step-body">
             <p>Lets KUAL discover extensions. Required for KOReader to appear in the menu.</p>
-            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kual-mrinstaller-1.7.N-r19303.zip</a></p>
+            <p><strong>Download:</strong> <code>kual-mrinstaller-1.7.N-r18983.tar.xz</code> &mdash; mirrored at <code class="path">mirror/niluje/</code> (original: <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's thread</a>).</p>
             <ol>
                 <li>Extract. You get <code>extensions/</code> and <code>mrpackages/</code> folders.</li>
                 <li>USB &rarr; copy both to Kindle <strong>root</strong>. Merge if prompted.</li>
@@ -228,7 +229,7 @@ Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">7</div><h3>Install KOReader</h3></div>
         <div class="step-body">
             <p>The alternative reader. Supports EPUB, PDF, DJVU, MOBI, and dozens more. Has its own modern TLS stack and OPDS browser.</p>
-            <p><strong>Download:</strong> <a href="https://github.com/koreader/koreader/releases" class="download-link">KOReader kindle-legacy</a> &mdash; must say <strong>"kindle-legacy"</strong> in the filename (e.g. <code>koreader-kindle-legacy-v2025.04.zip</code>).</p>
+            <p><strong>Download:</strong> <code>koreader-kindle-legacy-v2026.03.zip</code> &mdash; mirrored at <code class="path">mirror/koreader/</code> (original: <a href="https://github.com/koreader/koreader/releases" class="download-link">KOReader releases</a>). The filename <strong>must</strong> say <strong>"kindle-legacy"</strong> &mdash; the plain "kindle" build won't run on the K3's old ARM. (Newer KOReader releases work; grab the latest <code>kindle-legacy</code> if you prefer.)</p>
             <ol>
                 <li>Extract. You get <code>extensions/</code> and <code>koreader/</code> folders.</li>
                 <li>USB &rarr; copy both to Kindle <strong>root</strong>. Merge when prompted.</li>
@@ -256,10 +257,9 @@ Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">8</div><h3>Install Anna's Archive Plugin</h3></div>
         <div class="step-body">
             <p>Search and download books from Anna's Archive directly on the Kindle.</p>
-            <p><strong>Download:</strong> <a href="https://github.com/fischer-hub/annas.koplugin/releases" class="download-link">annas.plugin.zip</a> (upstream repo by fischer-hub)</p>
+            <p><strong>Download:</strong> <code>annas.koplugin-v0.1.8.zip</code> &mdash; mirrored at <code class="path">mirror/annas-koplugin/</code> (original: <a href="https://github.com/fischer-hub/annas.koplugin/releases" class="download-link">fischer-hub releases</a>).</p>
             <ol>
-                <li>Extract. You get a folder like <code>annas.koplugin-0.1.8</code>.</li>
-                <li><strong>Rename</strong> to just <code>annas.koplugin</code> (strip version number - required).</li>
+                <li>Extract. The official release zip already gives you a correctly-named <code>annas.koplugin</code> folder &mdash; <strong>no rename needed</strong>. (If you grabbed source instead and it's <code>annas.koplugin-0.1.8</code>, rename it to <code>annas.koplugin</code>, stripping the version.)</li>
                 <li>USB &rarr; copy into <code class="path">koreader/plugins/</code> on the Kindle:
                     <pre>Kindle root/
   koreader/
