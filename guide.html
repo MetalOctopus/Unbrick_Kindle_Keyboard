@@ -82,6 +82,18 @@
 
 <div class="container">
 
+    <div class="prereq-box" style="border-color: var(--success); border-width: 2px;">
+        <h2 style="color: var(--success);">&#10003; Is this guide for YOUR device?</h2>
+        <p><strong>This procedure is for the Kindle Keyboard (3rd Gen / "K3") only.</strong> It has been walked end-to-end and <strong>verified on a real device: model <code>B006</code> (3G&nbsp;+&nbsp;WiFi, US), firmware <code>3.4.3</code></strong> &mdash; every step confirmed on hardware and recorded in this repo's <code class="path">FIELD-NOTES.md</code>.</p>
+        <p style="margin-top: 0.8rem;"><strong>Check your device:</strong> on the Kindle, <kbd>Home</kbd> &rarr; <kbd>Menu</kbd> &rarr; <kbd>Settings</kbd>. Note the <strong>serial prefix</strong> (first 4 characters) and the <strong>firmware version</strong> at the bottom of the screen. Then:</p>
+        <ul style="margin: 0.6rem 0 0 1.5rem;">
+            <li><strong>Serial <code>B006</code> + firmware <code>3.4.3</code></strong> &rarr; this is the exact field-tested path. Expect it to match step for step.</li>
+            <li><strong>Serial <code>B006</code>/<code>B008</code>/<code>B00A</code>, firmware <code>3.0</code>&ndash;<code>3.4.3</code></strong> &rarr; supported. The steps are identical; you just pick the file matching <em>your</em> serial (every step lists all three variants, and the firmware split is called out). These variants are fully documented but not yet independently field-tested.</li>
+            <li><strong>Serial does NOT start with <code>B006</code>/<code>B008</code>/<code>B00A</code></strong> &rarr; this is <em>not</em> your device. Don't run any of these files. For other Kindles, start at <a href="https://kindlemodding.org/" class="download-link">KindleModding.org</a>.</li>
+        </ul>
+        <p style="margin-top: 0.8rem; color: var(--text-dim);">In this guide, <strong>"confirmed"</strong> means we saw it happen on the B006/3.4.3 unit. Anything not yet observed on hardware is labelled as such, so you always know what's proven vs. expected.</p>
+    </div>
+
     <div class="risk-banner">
         <h2>Bricking Risk Assessment</h2>
         <p>The K3 jailbreak has been used safely by thousands since 2010. Honest breakdown:</p>

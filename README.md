@@ -2,6 +2,26 @@
 
 Amazon killed TLS 1.0/1.1 support on their servers, effectively bricking the Kindle Keyboard's wireless features. No store, no Send-to-Kindle, no 3G, no cloud sync. This project documents how to jailbreak the device, install KOReader, and search/download books from Anna's Archive directly on the Kindle over a phone hotspot.
 
+> ## ✅ Is this for your device? (read this first)
+>
+> **This guide is for the Kindle Keyboard (3rd Gen / "K3") only.** It has been walked
+> end-to-end and **verified on a real device: model `B006` (3G + WiFi, US), firmware
+> `3.4.3`** — every step confirmed on hardware and logged in [`FIELD-NOTES.md`](FIELD-NOTES.md).
+>
+> **Check yours:** on the Kindle, **Home → Menu → Settings**. Note the **serial prefix**
+> (first 4 characters) and the **firmware version** at the bottom.
+>
+> | Your device | Status |
+> |-------------|--------|
+> | Serial `B006` + firmware `3.4.3` | ✅ Exact field-tested path — should match step for step |
+> | Serial `B006`/`B008`/`B00A`, firmware `3.0`–`3.4.3` | ✅ Supported — identical steps, pick your variant's file (all three listed at each step); documented but not yet independently field-tested |
+> | Serial **not** `B006`/`B008`/`B00A` | ❌ Not your device — this is K3-only. See [KindleModding.org](https://kindlemodding.org/) |
+>
+> Throughout this repo, **"confirmed"** means we saw it work on the B006/3.4.3 unit;
+> anything not yet observed on hardware is labelled as such, so you always know what's
+> proven vs. expected. **All required files are mirrored in [`mirror/`](mirror/)** — you
+> can complete the whole process from this repo alone, no dead forum links.
+
 ## What This Gets You
 
 - **KOReader** replacing the stock reader — supports EPUB, PDF, DJVU, MOBI, and dozens more formats

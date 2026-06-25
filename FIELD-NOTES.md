@@ -217,6 +217,14 @@ harmless (it just re-lays the same kit), and skipping it risks a blank-screen KU
 at Step 5 — so we install it anyway. Either way, **Step 3's 2025 DevCerts is still
 required**, because the keystore MKK lays down is the 2014 one that expired 2025-04-17.
 
-> **Status:** Step 1 CONFIRMED on-device (linkjail present). Step 2 MKK (`k3g-B006`)
-> staged to root + verified; awaiting the "Update Your Kindle" reboot to confirm. Then
-> Step 3 (DevCerts), Step 4 (block OTA), Step 5 (KUAL = visible payoff).
+### Step 2 (MKK) — DONE
+Staged the **correct** `Update_mkk-20141129-k3g-B006_install.bin` (re-pinned after the
+glob near-miss above), ejected, ran "Update Your Kindle". Rebooted normally, no greying
+out. Over USB afterward: the `.bin` was **consumed** off the root and `linkjail/` is still
+present — MKK applied cleanly on top of the jailbreak. As expected, no visible change yet;
+the real proof comes when KUAL launches (Step 5).
+
+> **Status:** Steps 1 & 2 CONFIRMED on-device. Step 3 DevCerts keystore
+> (`Update-mkk-20250419-k3g-B006_keystore-install.bin`, sha256 `8958f1b5…`) staged to root
+> + verified; awaiting its "Update Your Kindle" reboot. Then Step 4 (block OTA) and Step 5
+> (KUAL = first visible payoff, and the true confirmation the whole cert/MKK chain worked).
