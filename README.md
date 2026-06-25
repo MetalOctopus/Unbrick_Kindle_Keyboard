@@ -49,6 +49,8 @@ right file." That's it.
 - Your **Kindle Keyboard** (the one with the physical keyboard at the bottom, from ~2010).
 - The **USB cable** that charges it (the small "micro-USB" end goes into the Kindle).
 - A **computer** (Windows, Mac, or Linux — anything that can copy files to a USB drive).
+- **Windows users:** install the free **[7-Zip](https://www.7-zip.org/)** first — Windows can't
+  open the `.tar.xz` files in this guide on its own. (Mac users can usually just double-click them.)
 - About **30 minutes**. You can stop and resume between steps; nothing has to be done in one sitting.
 - ⚠️ **Do NOT factory reset or "wipe" the Kindle** before or during this. Just leave it as-is.
 
@@ -119,10 +121,34 @@ Everything is stored in this repository so it can't disappear on you. **Click to
 | Step 7 | **[KOReader file](mirror/koreader/koreader-kindle-legacy-v2026.03.zip)** | [KOReader downloads](https://github.com/koreader/koreader/releases) |
 | Step 8 | **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)** | [Plugin downloads](https://github.com/fischer-hub/annas.koplugin/releases) |
 
-These files end in `.tar.xz` or `.zip`. They're like ZIP folders — you'll need to **unzip
-(extract)** them on your computer first. Windows can open `.zip` on its own; for `.tar.xz`,
-the free program [7-Zip](https://www.7-zip.org/) opens them (you may need to extract twice —
-once to get a `.tar`, once more to get the files).
+These files end in `.tar.xz`, `.zip`, or `.azw2`. The `.tar.xz` and `.zip` ones are like ZIP
+folders — you **unzip (extract)** them first. The `.azw2` (KUAL) is a single ready file — no
+unzipping. Here's exactly how to do each computer task, on Windows and Mac:
+
+> ### 💻 How to do the computer bits (you'll use these throughout)
+>
+> **Unzip / extract a downloaded file**
+> - **Windows:** right-click the file → **7-Zip → Extract Here** (install [7-Zip](https://www.7-zip.org/)
+>   first — Windows can't open `.tar.xz` by itself). For a `.tar.xz` you do this **twice**: the
+>   first extract gives you a single file ending in `.tar` — **that's normal, not an error** —
+>   right-click *that* → **7-Zip → Extract Here** again to get the real folder.
+> - **Mac:** double-click the file; the built-in Archive Utility extracts it. If you're left
+>   with a `.tar`, double-click that too. You end up with a folder.
+>
+> **Find and open the Kindle as a drive** (after plugging in via USB)
+> - **Windows:** open **File Explorer → This PC** → you'll see a drive named **Kindle**. Double-click it.
+> - **Mac:** open **Finder** → **Kindle** appears in the left sidebar under Locations. Click it.
+> - The window that opens is the **"root"** — the top level. (Folders like `documents` are *inside* it.)
+>
+> **Copy a file onto the Kindle**
+> - Just **drag** the file (or folder) from your extracted folder into the Kindle window — or
+>   copy (Ctrl/Cmd+C) and paste (Ctrl/Cmd+V) into it. Wait for the copy bar to finish.
+>
+> **Safely eject before unplugging** (so the copy isn't cut off)
+> - **Windows:** click the **USB/eject icon** in the system tray (bottom-right, near the clock) →
+>   **Eject Kindle**, then unplug.
+> - **Mac:** click the **⏏ eject arrow** next to "Kindle" in the Finder sidebar (or drag the
+>   Kindle icon to the Trash/eject), then unplug.
 
 ---
 
