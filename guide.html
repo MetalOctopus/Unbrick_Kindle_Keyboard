@@ -236,17 +236,10 @@ Update-mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
 
     <!-- STEP 6 -->
     <div class="step" id="step6">
-        <div class="step-header"><div class="step-number">6</div><h3>Install MRPI (Package Installer)</h3></div>
+        <div class="step-header"><div class="step-number">6</div><h3>MRPI (Package Installer) &mdash; OPTIONAL, skip to Step 7</h3></div>
         <div class="step-body">
-            <p>Lets KUAL discover extensions. Required for KOReader to appear in the menu.</p>
-            <p><strong>Download:</strong> <code>kual-mrinstaller-1.7.N-r18983.tar.xz</code> &mdash; mirrored at <code class="path">mirror/niluje/</code> (original: <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's thread</a>).</p>
-            <ol>
-                <li>Extract. You get <code>extensions/</code> and <code>mrpackages/</code> folders.</li>
-                <li>USB &rarr; copy both to Kindle <strong>root</strong>. Merge if prompted.</li>
-                <li>Eject. Open KUAL &mdash; should show new MRPI/Helper entries.</li>
-            </ol>
-            <div class="outcome outcome-success"><strong>Success:</strong> KUAL shows MRPI entries.</div>
-            <div class="outcome outcome-warn"><strong>Space:</strong> Needs ~220 MB free. Remove books if tight. Airplane Mode on before freeing space.</div>
+            <div class="outcome outcome-warn"><strong>⏭️ You can skip this step.</strong> MRPI is a general add-on installer, but <strong>KOReader (Step 7) does NOT need it</strong> &mdash; KOReader installs its own KUAL entry. Confirmed on a real B006/3.4.3 device: MRPI was skipped entirely and KOReader worked. <strong>Go straight to Step 7.</strong> Only install MRPI if some other future add-on specifically asks for it.</div>
+            <p><strong>If you ever do need it later:</strong> <code>kual-mrinstaller-1.7.N-r18983.tar.xz</code> &mdash; mirrored at <code class="path">mirror/niluje/</code> (original: <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's thread</a>). Extract, copy its <code>extensions/</code> (and <code>mrpackages/</code>) to the Kindle root (merge if prompted), eject, reopen KUAL &mdash; a "Helper"/MRPI entry appears.</p>
         </div>
     </div>
 

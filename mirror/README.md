@@ -19,7 +19,7 @@ will outlive their software's hosting; this folder is the insurance.
 | `niluje/KUAL-v2.7.29-g7750a3a-20221017.tar.xz` | 5 | OLD 2022 KUAL — cert **expired 2025-04-17**; reference only, do NOT use | K3 legacy |
 | `kindlemodding/KUAL-KDK-1.0.azw2` | 5 (alt) | KUAL for the **Hotfix** path — different cert family, use ONLY with the hotfix below | K3 legacy |
 | `kindlemodding/Update_hotfix_universal.bin` | 5 (alt) | Hotfix 2.5.0 — date-proof certs; alternative cert path (K3 lightly tested) | all |
-| `niluje/kual-mrinstaller-1.7.N-r18983.tar.xz` | 6 | MRPI package installer | K3 (has `bin/K3/`) |
+| `niluje/kual-mrinstaller-1.7.N-r18983.tar.xz` | 6 *(optional)* | MRPI package installer — **not needed for KOReader**, skip unless another add-on requires it | K3 (has `bin/K3/`) |
 | `koreader/koreader-kindle-legacy-v2026.03.zip` | 7 | KOReader reader (modern TLS, OPDS) | `kindle-legacy` = K2–K4 |
 | `annas-koplugin/annas.koplugin-v0.1.8.zip` | 8 | Anna's Archive search/download plugin | any KOReader |
 

@@ -117,7 +117,7 @@ Everything is stored in this repository so it can't disappear on you. **Click to
 | Step 2 | **[MKK file](mirror/niluje/kindle-mkk-20141129-r18833.tar.xz)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 3 | **[DevCerts file](mirror/devcerts/DevCerts-20250419-KeyStore.zip)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 5 | **[KUAL app (KUAL-KDK-1.0.azw2)](mirror/niluje/KUAL-KDK-1.0.azw2)** — NiLuJe 2025, matches DevCerts ✅ | [NiLuJe (MobileRead)](https://www.mobileread.com/forums/showthread.php?t=225030) |
-| Step 6 | **[MRPI file](mirror/niluje/kual-mrinstaller-1.7.N-r18983.tar.xz)** | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
+| Step 6 | *(optional — skip; not needed for KOReader)* [MRPI file](mirror/niluje/kual-mrinstaller-1.7.N-r18983.tar.xz) | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 7 | **[KOReader file](mirror/koreader/koreader-kindle-legacy-v2026.03.zip)** | [KOReader downloads](https://github.com/koreader/koreader/releases) |
 | Step 8 | **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)** | [Plugin downloads](https://github.com/fischer-hub/annas.koplugin/releases) |
 
@@ -160,12 +160,17 @@ full, slowly:
 1. **Plug the Kindle into your computer** with the USB cable. After a moment it shows a "USB
    drive mode" screen and appears on your computer like a USB stick named **Kindle**.
 2. **Open that Kindle drive.** The main window you see *is* the "root".
-3. **Copy your file for this step into that main window** (the root) — not into any folder.
-4. **Safely eject** the Kindle (so the copy finishes), then **unplug** the cable. The Kindle
+3. **First, tidy up:** if there's a leftover `.bin` file from a previous step still sitting in
+   the root, **delete it** — you want only *this* step's file there, so "Update Your Kindle"
+   can't grab the wrong one. (The jailbreak in Step 1 usually removes its own file; MKK/DevCerts
+   may leave theirs — just delete any stray `.bin` before copying the next.) Leave the
+   `update.bin.tmp.partial` folder alone if it's there.
+4. **Copy your file for this step into that main window** (the root) — not into any folder.
+5. **Safely eject** the Kindle (so the copy finishes), then **unplug** the cable. The Kindle
    goes back to its normal screen.
-5. On the **Kindle itself**: press **Home → Menu → Settings → Menu → "Update Your Kindle"**,
+6. On the **Kindle itself**: press **Home → Menu → Settings → Menu → "Update Your Kindle"**,
    and confirm. The Kindle installs the file and **restarts on its own.**
-6. Wait for it to finish restarting (back to the Home screen). That step is done. ✅
+7. Wait for it to finish restarting (back to the Home screen). That step is done. ✅
 
 > 💡 **Reassurance for the nervous:** while it installs you may see "Your Kindle is
 > restarting…" and the screen may go blank or flash for a minute. **This is normal.** Don't
@@ -188,7 +193,10 @@ Nothing is broken; you'll just swap in the correct file.
 
 ---
 
-## The 8 steps
+## The steps
+
+There are 8 numbered steps, but **Step 6 is optional — almost everyone skips it.** So your real
+path is **1 → 2 → 3 → 4 → 5 → 7 → 8.** (We keep the number 6 so it matches other guides online.)
 
 ### Step 1 — Jailbreak (unlock the Kindle)
 **What it does:** opens the door so your Kindle can run the helpful apps. **Safe and reversible.**
@@ -317,17 +325,22 @@ it fills up as you install KOReader in the next steps. This is the big "it's ali
 > **Other KUAL problems:** blank screen / crash → Step 2 (MKK) didn't take, redo it. KUAL not in
 > your book list at all → the file went to the root instead of `documents`; move it and restart.
 
-### Step 6 — MRPI (lets the menu install bigger apps)
-**What it does:** a helper so KUAL can install KOReader next.
+### Step 6 — MRPI — ⏭️ OPTIONAL, you can SKIP THIS (go straight to Step 7)
+
+> **You almost certainly don't need this.** MRPI is a general add-on installer, but **KOReader
+> (Step 7) does not need it** — KOReader installs itself into KUAL on its own. We confirmed this
+> on a real device: we skipped MRPI entirely and KOReader worked perfectly. **Skip ahead to
+> Step 7.** Only come back and do this if some *other* future add-on specifically tells you to
+> install MRPI first.
+
+<details><summary>If you ever do need MRPI later — click to expand</summary>
 
 1. Download and unzip the **[MRPI file](mirror/niluje/kual-mrinstaller-1.7.N-r18983.tar.xz)**.
    Inside are folders like `extensions` (and maybe `mrpackages`).
-2. Plug in the Kindle. Copy those folders into the **root**. If your computer asks whether to
-   **merge** with existing folders, say **yes/merge**.
-3. Safely eject, unplug. Open **KUAL** again.
+2. Plug in the Kindle. Copy those folders into the **root**; say **yes/merge** if asked.
+3. Safely eject, unplug. Open **KUAL** — it shows a new "Helper"/MRPI entry.
 
-**✅ What success looks like:** KUAL now shows new entries (a "Helper" / MRPI option). *(Your
-Kindle needs about 220 MB free for the next step; if it's full of books, copy a few off first.)*
+</details>
 
 ### Step 7 — KOReader (your new reading app)
 **What it does:** installs the modern reading app that can go online safely and read almost
@@ -361,10 +374,21 @@ Exit/Quit. Your old books are untouched.)*
 
 1. Download and unzip the **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)**.
    You'll get a folder named `annas.koplugin` — **no renaming needed.**
-2. Plug in the Kindle. Put that `annas.koplugin` folder **inside** the `koreader` ▸ `plugins`
-   folder on the Kindle (so the path is `koreader/plugins/annas.koplugin`).
-3. Safely eject, unplug. Open **KOReader** (via KUAL → KOReader → no framework). Look in the
-   **Search** menu.
+2. Plug in the Kindle. On the Kindle's root there's already a **`koreader`** folder (from
+   Step 7), and inside it a **`plugins`** folder — you are **not** creating these. Open
+   `koreader`, then open `plugins`, and drop the whole **`annas.koplugin`** folder in there.
+   The finished layout looks like this:
+   ```
+   Kindle (root)
+     └─ koreader
+         └─ plugins
+             └─ annas.koplugin   ← the folder you just copied in
+                 ├─ main.lua
+                 └─ ...
+   ```
+3. Safely eject, unplug. Launch **KOReader** (KUAL → KOReader → Start No Framework). The
+   Anna's Archive search lives **inside KOReader**, not in KUAL: tap the **top of the screen**
+   for KOReader's menu → the **Search** (magnifying-glass) menu.
 
 **✅ What success looks like:** "Anna's Archive" appears in the Search menu. Choose it, type a
 book title with the keyboard, and results appear to download.
