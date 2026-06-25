@@ -311,12 +311,24 @@ any book format.
    ⚠️ The filename **must** contain **`kindle-legacy`** — that's the version made for your older
    Kindle. Inside are `extensions` and `koreader` folders.
 2. Plug in, copy both folders into the **root**, **merge** if asked. Safely eject, unplug.
-3. Open **KUAL**, choose **KOReader**, then choose **"Start KOReader (no framework)"**.
+3. **Open KUAL** (the "book" from Step 5). KOReader does **not** start on its own — you launch
+   it from inside KUAL. There should now be a **new `KOReader` entry** in the KUAL menu that
+   wasn't there before. Select it, then choose **"Start KOReader (no framework)"** ("no
+   framework" shuts down the stock Kindle software to free up memory — important on this 256 MB
+   device).
+   > **If KUAL still only shows "KUAL" and "Quit" (no KOReader entry):** the menu just didn't
+   > rescan. **Restart the Kindle** (hold power ~30 s), open KUAL again, and the `KOReader`
+   > entry will be there.
+4. **Be patient on launch:** the screen typically **goes blank/black for up to a minute** while
+   it shuts down the stock interface and starts KOReader. That's normal — don't panic, don't
+   press anything.
 
-**✅ What success looks like:** the whole screen changes into a clean file browser that looks
-nothing like the normal Kindle. That's KOReader running. Use the page-turn buttons, the arrow
-pad to move around, the center button to select, and the keyboard to type.
-*(To get back to your normal Kindle later: in KOReader, Menu → Exit/Quit. Your old books are untouched.)*
+**✅ What success looks like:** the whole screen changes into a clean **file browser** that looks
+nothing like the normal Kindle (top menu bar, folders listed) — **and the very first time, it
+opens a built-in "Quickstart guide" document.** That's KOReader running. Use the page-turn
+buttons, the arrow pad to move around, the center button to select, and the keyboard to type.
+*(To get back to your normal Kindle later: in KOReader, tap the top of the screen for the menu →
+Exit/Quit. Your old books are untouched.)*
 
 ### Step 8 — Anna's Archive plugin (search & download books on the Kindle)
 **What it does:** adds book searching right inside KOReader.

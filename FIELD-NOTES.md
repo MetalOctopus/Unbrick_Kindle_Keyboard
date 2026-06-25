@@ -317,5 +317,18 @@ just a slow 15-year-old device.
 
 This was important enough to surface as a **DIY reassurance** in all three user-facing docs
 (README flash-pattern callout + golden rule, CHECKLIST golden rule ⑤, guide.html warning box
-before Step 1) — a non-technical user would otherwise assume a hang = bricked and panic. KOReader
-(Step 7) copied to the device (1015/1015 files verified); awaiting on-device launch confirmation.
+before Step 1) — a non-technical user would otherwise assume a hang = bricked and panic.
+
+## Step 7 (KOReader) — CONFIRMED
+Copied `koreader/` + `extensions/koreader/` to the root (1015/1015 files verified, merged into
+the `extensions/` folder KUAL had already created). **MRPI was skipped entirely — not needed.**
+Launched via **KUAL → KOReader → Start KOReader (no framework)**. Proof it worked: KOReader
+opened its built-in **"Quickstart guide"** document (it shows that on first successful launch).
+So on this path the order is really: jailbreak → MKK → DevCerts → block OTA → KUAL → **(skip
+MRPI)** → KOReader. Enhanced README Step 7 with the launch specifics (KOReader appears as a new
+KUAL entry, the blank-screen-during-no-framework reassurance, restart-to-rescan if the entry's
+missing, and the Quickstart-guide success tell).
+
+> **Status:** Steps 1–5 + 7 CONFIRMED on-device (Step 6/MRPI skipped as unnecessary). Only
+> Step 8 (annas.koplugin) remains — the on-device TLS-to-Anna's-Archive question (the project's
+> biggest original unknown) gets answered next.
