@@ -37,16 +37,38 @@ The Write tool fails with EACCES on samba/CIFS mounts. Use `cat > /path << 'EOF'
 2. Kindle connects to phone hotspot
 3. Downloads .mobi via experimental browser or KOReader from `http://192.168.43.1:PORT/`
 
+## Working Method (how we build this)
+- This repo is a living, field-tested guide. Walk each step on a REAL device, confirm it, then write it up. "Confirmed" = observed on the test device; label anything not yet seen as expected/unverified.
+- After each verified step: update `guide.html` + `README.md` + `CHECKLIST.md` to match reality, log it in `FIELD-NOTES.md`, then make a focused commit and `git push origin main` (the `origin` remote carries a push token — redact it in any echoed output).
+- **Verify-then-document:** inspect actual archive contents (real filenames, magic bytes, `sha256sum`) before writing instructions. The original guide had real drift (wrong filenames, `.zip` vs `.tar.xz`, an obsolete rename step). Pin files by exact discriminator (`k3g-B006`, never a `k3g*` glob — it also matches `k3gb`).
+- **Audience = non-technical, no LLM, scared of bricking.** Keep docs incredibly verbose and hand-holding, DIY-first, with "what success looks like" + recovery at every step. Mirror EVERY required file into `mirror/` (with `SHA256SUMS` + provenance) so nothing rots.
+
+## Device Access (this WSL session)
+- Kindle plugs into the Windows host; reaches WSL via drvfs as removable drive **`G:`** (label "Kindle"; letter can vary — check `Get-Volume` via powershell.exe).
+- Mount: `sudo -n mount -t drvfs G: /mnt/g` (a passwordless sudo rule for mount/umount is installed at `/etc/sudoers.d/kindle-mount`). The mount goes stale after reboots — remount. After each flash the Kindle leaves USB drive mode; the user must reconnect before remounting.
+- `sha256sum` every file after copying to the Kindle. Serial/firmware/keystore are NOT on the USB partition.
+
+## Current Progress & Verified Learnings (2026-06, device: B006 / FW 3.4.3)
+- **Steps 1–5 CONFIRMED on-device** (jailbreak → MKK → DevCerts → block OTA → KUAL launches). See `FIELD-NOTES.md` for the blow-by-blow. Steps 7–8 documented, not yet device-confirmed.
+- **Jailbreak proof:** after the flash, the `.bin` is consumed and a `linkjail/` folder appears on the root.
+- **KUAL cert-family rule (the big gotcha):** KUAL must match the installed cert family. We use **NiLuJe DevCerts-20250419 + NiLuJe 2025 KUAL** (`mirror/niluje/KUAL-KDK-1.0.azw2`, ~131.0 KB). The KindleModding KUAL (`mirror/kindlemodding/`, ~131.7 KB) is the **Hotfix** family — mixing it with DevCerts gives "not signed by a registered developer." The 2022 KUAL (~127.8 KB) is dead (cert expired 2025-04-17).
+- **DevCerts K3 filename uses a HYPHEN:** `Update-mkk-20250419-k3g-B006_keystore-install.bin` (underscore is only the k4/k5 files).
+- **MRPI (Step 6) is NOT needed for KOReader** — KOReader ships its own KUAL launcher. Treat it as optional/skippable.
+- Files live on NiLuJe's OVH index (`storage.gra.cloud.ovh.net/.../mr-public/`, listing disabled but `index.html` + direct files work); DevCerts is a MobileRead t=225030 attachment, not on that index.
+
 ## Key Unknowns (as of June 2026)
 - **TLS on kindle-legacy KOReader:** Nobody has publicly confirmed that KOReader's bundled curl on the kindle-legacy build can negotiate TLS 1.2+ with Anna's Archive and LibGen mirrors. This is the biggest risk. If it fails, fall back to plain HTTP via Calibre-Web.
 - **RAM on K3:** 256 MB is tight. The annas.koplugin does HTML scraping via regex which should be lightweight, but heavy search results could OOM. Use "no framework" launch mode.
 - **Tailscale on K3:** ARM926EJ-S is very old. Tailscale requires ARMv5+ static binary. Theoretically possible, unconfirmed.
 
 ## File Structure
-- `guide.html` — Step-by-step jailbreak + setup guide (deployable as a webpage)
-- `research/` — Detailed research notes from investigation
-- `CLAUDE.md` — This file (context for Claude Code)
-- `README.md` — Project overview and quick reference
+- `README.md` — The main guide / GitHub front page: verbose, hand-holding, non-technical-friendly, with direct download links.
+- `guide.html` — Styled web version of the guide (deployed at https://verygneiss.au/kindlebreak/).
+- `CHECKLIST.md` — One-page print-and-tick checklist of all steps + success indicators.
+- `FIELD-NOTES.md` — Chronological real-device log (source of truth for progress); one chapter per phase, with the gotchas we hit.
+- `mirror/` — Every required file, archived with `SHA256SUMS` + provenance (`mirror/README.md`). Subdirs: `niluje/`, `devcerts/`, `koreader/`, `annas-koplugin/`, `kindlemodding/`.
+- `research/` — Background research notes.
+- `CLAUDE.md` — This file (context for Claude Code).
 
 ## Important Links
 - NiLuJe's MobileRead thread (ALL jailbreak downloads): https://www.mobileread.com/forums/showthread.php?t=225030
