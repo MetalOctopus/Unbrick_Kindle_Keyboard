@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindle Keyboard (K3) Jailbreak &amp; KOReader Setup Guide</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --surface: #16213e;
+            --surface-alt: #0f3460;
+            --accent: #e94560;
+            --accent-dim: #c23152;
+            --text: #eee;
+            --text-dim: #aab;
+            --success: #4ecca3;
+            --warning: #f0a500;
+            --danger: #e94560;
+            --code-bg: #0d1117;
+            --border: #2a2a4a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        header { background: linear-gradient(135deg, var(--surface), var(--surface-alt)); border-bottom: 3px solid var(--accent); padding: 2.5rem 2rem; text-align: center; }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
+        header p { color: var(--text-dim); max-width: 700px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .risk-banner { background: linear-gradient(135deg, #1a1a00, #2a2200); border: 2px solid var(--warning); border-radius: 10px; padding: 1.5rem; margin-bottom: 2.5rem; }
+        .risk-banner h2 { color: var(--warning); margin-bottom: 0.8rem; }
+        .risk-banner ul { margin-left: 1.5rem; }
+        .risk-banner li { margin-bottom: 0.4rem; }
+        .prereq-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 2.5rem; }
+        .prereq-box h2 { color: var(--success); margin-bottom: 1rem; }
+        .model-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .model-table th, .model-table td { padding: 0.5rem 1rem; border: 1px solid var(--border); text-align: left; }
+        .model-table th { background: var(--surface-alt); color: var(--accent); }
+        .step { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 2rem; overflow: hidden; }
+        .step-header { background: linear-gradient(135deg, var(--surface-alt), var(--surface)); padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
+        .step-number { background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
+        .step-header h3 { font-size: 1.2rem; }
+        .step-body { padding: 1.5rem; }
+        .step-body ol, .step-body ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        .step-body li { margin-bottom: 0.5rem; }
+        .step-body p { margin-bottom: 0.8rem; }
+        .download-link { display: inline-block; background: var(--surface-alt); border: 1px solid var(--accent-dim); border-radius: 6px; padding: 0.4rem 0.8rem; color: var(--accent); text-decoration: none; font-family: monospace; font-size: 0.9rem; transition: all 0.2s; margin: 0.3rem 0; }
+        .download-link:hover { background: var(--accent); color: white; }
+        code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.88rem; color: var(--success); }
+        .path { color: var(--warning); }
+        pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 0.8rem 0; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.88rem; line-height: 1.5; }
+        .outcome { border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+        .outcome-success { background: rgba(78, 204, 163, 0.1); border-left: 4px solid var(--success); }
+        .outcome-success strong { color: var(--success); }
+        .outcome-fail { background: rgba(233, 69, 96, 0.1); border-left: 4px solid var(--danger); }
+        .outcome-fail strong { color: var(--danger); }
+        .outcome-warn { background: rgba(240, 165, 0, 0.1); border-left: 4px solid var(--warning); }
+        .outcome-warn strong { color: var(--warning); }
+        .section-divider { text-align: center; margin: 3rem 0 2rem; color: var(--text-dim); position: relative; }
+        .section-divider::before, .section-divider::after { content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: var(--border); }
+        .section-divider::before { left: 0; }
+        .section-divider::after { right: 0; }
+        .usage-section { background: var(--surface); border: 1px solid var(--success); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+        .usage-section h2 { color: var(--success); margin-bottom: 1rem; }
+        .faq { margin-top: 2.5rem; }
+        .faq h2 { color: var(--accent); margin-bottom: 1.2rem; }
+        .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-bottom: 1rem; }
+        .faq-item h4 { color: var(--warning); margin-bottom: 0.5rem; }
+        .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .link-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-decoration: none; color: var(--text); transition: all 0.2s; }
+        .link-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .link-card .link-title { color: var(--accent); font-weight: bold; margin-bottom: 0.3rem; }
+        .link-card .link-desc { font-size: 0.85rem; color: var(--text-dim); }
+        footer { text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+        @media (max-width: 600px) { .links-grid { grid-template-columns: 1fr; } header h1 { font-size: 1.5rem; } .container { padding: 1rem; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Kindle Keyboard (K3) Liberation Guide</h1>
+    <p>From stock to searching Anna's Archive directly on your Kindle. Jailbreak + KOReader + annas.koplugin. Everything via USB, no Amazon involvement.</p>
+</header>
+
+<div class="container">
+
+    <div class="risk-banner">
+        <h2>Bricking Risk Assessment</h2>
+        <p>The K3 jailbreak has been used safely by thousands since 2010. Honest breakdown:</p>
+        <ul>
+            <li><strong>True brick (unrecoverable)?</strong> Essentially zero risk. The K3 has USB serial recovery that can restore even a botched firmware update. You'd have to deliberately destroy the bootloader (nothing here touches it) to truly brick.</li>
+            <li><strong>Soft brick (stuck on boot)?</strong> Very low. Only happens with the <em>wrong .bin for your model</em>. Fix: hold power 30+ seconds, or plug into USB, delete the .bin, reboot.</li>
+            <li><strong>Functionality loss?</strong> None. Amazon already killed all cloud features. There's nothing left to lose.</li>
+            <li><strong>Reversible?</strong> Yes. Factory reset from settings restores stock firmware.</li>
+        </ul>
+        <p style="margin-top: 0.8rem; color: var(--warning);"><strong>The one real risk:</strong> Using the wrong <code>.bin</code> for your variant. Triple-check your serial prefix before every install.</p>
+    </div>
+
+    <div class="prereq-box">
+        <h2>Before You Begin</h2>
+        <p><strong>Do NOT factory reset or wipe the Kindle.</strong> The jailbreak installs on top of existing firmware. Your books, settings, and content are unaffected.</p>
+        <p style="margin-top: 1rem;">Identify your model via <kbd>Home</kbd> &rarr; <kbd>Menu</kbd> &rarr; <kbd>Settings</kbd>. Check the serial number prefix:</p>
+        <table class="model-table">
+            <thead><tr><th>Serial Prefix</th><th>Model</th><th>.bin suffix</th></tr></thead>
+            <tbody>
+                <tr><td><code>B006</code></td><td>Kindle Keyboard 3G + WiFi (K3G)</td><td><code>k3g</code></td></tr>
+                <tr><td><code>B008</code></td><td>Kindle Keyboard WiFi-only (K3W)</td><td><code>k3w</code></td></tr>
+                <tr><td><code>B00A</code></td><td>Kindle Keyboard 3G International (K3GB)</td><td><code>k3gb</code></td></tr>
+            </tbody>
+        </table>
+        <p>Firmware version is at the bottom of the Settings screen (e.g. <code>Kindle 3.4.3</code>). This guide covers <strong>3.0 through 3.4.3</strong>.</p>
+        <p style="margin-top: 1rem;"><strong>You need:</strong> USB micro-B cable, a computer, ~30 minutes. All downloads from <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">NiLuJe's MobileRead Snapshot Thread</a> plus KOReader GitHub releases.</p>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step" id="step1">
+        <div class="step-header"><div class="step-number">1</div><h3>Jailbreak the Kindle</h3></div>
+        <div class="step-body">
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kindle-jailbreak-0.13.N.zip</a></p>
+            <ol>
+                <li>Extract the zip. Find the correct <code>.bin</code>:
+                    <pre>Update_jailbreak_k3g_install.bin   B006 (3G+WiFi)
+Update_jailbreak_k3w_install.bin   B008 (WiFi only)
+Update_jailbreak_k3gb_install.bin  B00A (International 3G)</pre>
+                    If firmware is <strong>3.0-3.2</strong>, check the README for alternate files.
+                </li>
+                <li>Connect Kindle via USB.</li>
+                <li><strong>Delete</strong> any existing <code>.bin</code> files or <code>update.bin.tmp.partial</code> on the root.</li>
+                <li>Copy your <code>.bin</code> to the <strong>root</strong> of the Kindle drive.</li>
+                <li>Safely eject.</li>
+                <li>On Kindle: <kbd>Home</kbd> &rarr; <kbd>Menu</kbd> &rarr; <kbd>Settings</kbd> &rarr; <kbd>Menu</kbd> &rarr; <strong>"Update Your Kindle"</strong></li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> Kindle reboots normally. "Update Your Kindle" may now be greyed out (expected). You may see a brief <code>JailBroken</code> message during reboot.</div>
+            <div class="outcome outcome-fail"><strong>Failed - "Update Your Kindle" greyed out before you try:</strong> Wrong .bin for your model/firmware. Recheck serial prefix.</div>
+            <div class="outcome outcome-fail"><strong>Failed - U006 error:</strong> Normal on firmware 2.x (ignore it). On 3.x, wrong .bin.</div>
+            <div class="outcome outcome-fail"><strong>Failed - stuck on boot screen:</strong> Hold power 30+ seconds to force reboot. Plug into USB, delete the .bin, reboot. Device is fine.</div>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+        <div class="step-header"><div class="step-number">2</div><h3>Install MKK (MobileRead Kindlet Kit)</h3></div>
+        <div class="step-body">
+            <p>Required on K3 (pre-K5 device) to run Java Kindlets like KUAL.</p>
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kindle-mkk-20141129-r18833.tar.xz</a></p>
+            <ol>
+                <li>Extract with 7-Zip (tar.xz, may need two rounds). Find correct <code>.bin</code>:
+                    <pre>Update_mkk-20141129-k3g-B006_install.bin   B006
+Update_mkk-20141129-k3w-B008_install.bin   B008
+Update_mkk-20141129-k3gb-B00A_install.bin  B00A</pre>
+                </li>
+                <li>USB &rarr; copy .bin to root &rarr; eject &rarr; <kbd>Settings</kbd> &rarr; <kbd>Menu</kbd> &rarr; <strong>"Update Your Kindle"</strong></li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> Reboots normally. No visible change - MKK works silently. Confirmed when KUAL launches in Step 5.</div>
+            <div class="outcome outcome-fail"><strong>Failed - "Update" greyed out:</strong> Wrong .bin, or Step 1 jailbreak didn't take. Redo Step 1.</div>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+        <div class="step-header"><div class="step-number">3</div><h3>Install Updated Developer Certificates</h3></div>
+        <div class="step-body">
+            <p>Original dev certs <strong>expired April 17, 2025</strong>. Without this, KUAL won't launch. Mandatory.</p>
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">DevCerts-20250419-KeyStore.zip</a></p>
+            <ol>
+                <li>Extract. Find correct <code>.bin</code>:
+                    <pre>Update_mkk-20250419-k3g-B006_keystore-install.bin   B006
+Update_mkk-20250419-k3w-B008_keystore-install.bin   B008
+Update_mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
+                </li>
+                <li>USB &rarr; copy to root &rarr; eject &rarr; <strong>"Update Your Kindle"</strong></li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> Reboots. No visible change. Confirmed when KUAL works in Step 5.</div>
+            <div class="outcome outcome-fail"><strong>Failed - "permissions expired" later in KUAL:</strong> DevCerts didn't install. Make sure you used the <code>keystore</code> variant .bin, not a regular MKK one.</div>
+        </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+        <div class="step-header"><div class="step-number">4</div><h3>Block OTA Updates</h3></div>
+        <div class="step-body">
+            <p>Prevents Amazon from pushing updates that undo everything. No download needed.</p>
+            <ol>
+                <li>Connect Kindle via USB.</li>
+                <li>In the root directory, <strong>create a folder</strong> named exactly: <pre>update.bin.tmp.partial</pre> That's a <em>folder</em>, not a file. The dots are part of the name.</li>
+                <li>Safely eject.</li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> Folder exists on root. Verify via USB anytime.</div>
+            <div class="outcome outcome-warn"><strong>Note:</strong> If deleted (e.g. factory reset), redo this. Keep Airplane Mode on when not using WiFi.</div>
+        </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step5">
+        <div class="step-header"><div class="step-number">5</div><h3>Install KUAL (App Launcher)</h3></div>
+        <div class="step-body">
+            <p>KUAL appears as a "book" in your library. Opening it launches a menu for KOReader and other homebrew.</p>
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">KUAL-v2.7.37</a> &mdash; extract it, you need <code>KUAL-KDK-1.0.azw2</code> (the legacy variant).</p>
+            <ol>
+                <li>USB &rarr; copy <code>KUAL-KDK-1.0.azw2</code> into <code class="path">documents/</code> on the Kindle.</li>
+                <li>Eject. Go to <kbd>Home</kbd>. You should see <strong>KUAL</strong> as a book.</li>
+                <li>Open it.</li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> KUAL opens with a menu interface. This confirms jailbreak + MKK + DevCerts all worked. First real "it came together" moment.</div>
+            <div class="outcome outcome-fail"><strong>Failed - "application expired" / permissions error:</strong> DevCerts (Step 3) didn't install. Redo Step 3.</div>
+            <div class="outcome outcome-fail"><strong>Failed - not in library:</strong> Must be in <code>documents/</code> not root. Restart Kindle if needed.</div>
+            <div class="outcome outcome-fail"><strong>Failed - crashes / blank screen:</strong> MKK (Step 2) didn't install. Redo Step 2.</div>
+        </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step" id="step6">
+        <div class="step-header"><div class="step-number">6</div><h3>Install MRPI (Package Installer)</h3></div>
+        <div class="step-body">
+            <p>Lets KUAL discover extensions. Required for KOReader to appear in the menu.</p>
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kual-mrinstaller-1.7.N-r19303.zip</a></p>
+            <ol>
+                <li>Extract. You get <code>extensions/</code> and <code>mrpackages/</code> folders.</li>
+                <li>USB &rarr; copy both to Kindle <strong>root</strong>. Merge if prompted.</li>
+                <li>Eject. Open KUAL &mdash; should show new MRPI/Helper entries.</li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> KUAL shows MRPI entries.</div>
+            <div class="outcome outcome-warn"><strong>Space:</strong> Needs ~220 MB free. Remove books if tight. Airplane Mode on before freeing space.</div>
+        </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step" id="step7">
+        <div class="step-header"><div class="step-number">7</div><h3>Install KOReader</h3></div>
+        <div class="step-body">
+            <p>The alternative reader. Supports EPUB, PDF, DJVU, MOBI, and dozens more. Has its own modern TLS stack and OPDS browser.</p>
+            <p><strong>Download:</strong> <a href="https://github.com/koreader/koreader/releases" class="download-link">KOReader kindle-legacy</a> &mdash; must say <strong>"kindle-legacy"</strong> in the filename (e.g. <code>koreader-kindle-legacy-v2025.04.zip</code>).</p>
+            <ol>
+                <li>Extract. You get <code>extensions/</code> and <code>koreader/</code> folders.</li>
+                <li>USB &rarr; copy both to Kindle <strong>root</strong>. Merge when prompted.</li>
+                <li>Eject. Open KUAL &rarr; <strong>"KOReader"</strong> entry should appear.</li>
+                <li>Select <strong>"Start KOReader (no framework)"</strong> &mdash; kills stock GUI to free RAM. K3 only has 256 MB, this matters.</li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> KOReader launches with a file browser. Looks completely different from stock Kindle. Navigation:
+                <ul style="margin-top: 0.5rem;">
+                    <li><strong>D-pad</strong> &mdash; navigate menus/pages</li>
+                    <li><strong>Center/Enter</strong> &mdash; select</li>
+                    <li><strong>Menu key</strong> &mdash; top menu</li>
+                    <li><strong>Back key</strong> &mdash; go back</li>
+                    <li><strong>Physical keyboard</strong> &mdash; text input</li>
+                    <li><strong>Page turn buttons</strong> &mdash; turn pages</li>
+                </ul>
+            </div>
+            <div class="outcome outcome-fail"><strong>Failed - not in KUAL:</strong> <code>extensions/</code> didn't merge right. Check <code>extensions/koreader/</code> exists via USB.</div>
+            <div class="outcome outcome-fail"><strong>Failed - crashes on launch:</strong> Wrong package. Must be "kindle-legacy" not regular "kindle". The legacy build targets K3's ARM architecture.</div>
+            <div class="outcome outcome-warn"><strong>Back to stock:</strong> KOReader &rarr; Menu &rarr; Quit/Exit. "No framework" mode restarts into stock interface. Your normal books are still there.</div>
+        </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step" id="step8">
+        <div class="step-header"><div class="step-number">8</div><h3>Install Anna's Archive Plugin</h3></div>
+        <div class="step-body">
+            <p>Search and download books from Anna's Archive directly on the Kindle.</p>
+            <p><strong>Download:</strong> <a href="https://github.com/fischer-hub/annas.koplugin/releases" class="download-link">annas.plugin.zip</a> (upstream repo by fischer-hub)</p>
+            <ol>
+                <li>Extract. You get a folder like <code>annas.koplugin-0.1.8</code>.</li>
+                <li><strong>Rename</strong> to just <code>annas.koplugin</code> (strip version number - required).</li>
+                <li>USB &rarr; copy into <code class="path">koreader/plugins/</code> on the Kindle:
+                    <pre>Kindle root/
+  koreader/
+    plugins/
+      annas.koplugin/    &larr; here
+        main.lua
+        ...</pre>
+                </li>
+                <li>Eject. Launch KOReader via KUAL ("no framework").</li>
+                <li>In the file browser, go to <strong>Search</strong> menu. <strong>"Anna's Archive"</strong> should be there.</li>
+            </ol>
+            <div class="outcome outcome-success"><strong>Success:</strong> "Anna's Archive" in search menu. Type a query with the physical keyboard and results appear.</div>
+            <div class="outcome outcome-fail"><strong>Failed - not in menus:</strong> Wrong path or folder name. Must be exactly <code>koreader/plugins/annas.koplugin/main.lua</code>. No version suffix.</div>
+            <div class="outcome outcome-fail"><strong>Failed - connection error on search:</strong> TLS issue. KOReader bundles its own curl but nobody has confirmed this works on kindle-legacy with Anna's Archive specifically. See troubleshooting below.</div>
+            <div class="outcome outcome-warn"><strong>DNS issues:</strong> Plugin has a base URL override setting. Try different WiFi/hotspot if resolution fails.</div>
+        </div>
+    </div>
+
+    <div class="section-divider">Setup Complete</div>
+
+    <div class="usage-section">
+        <h2>The Airplane Workflow</h2>
+        <ol>
+            <li>Phone hotspot on (<strong>2.4 GHz, WPA2 only</strong> &mdash; K3 doesn't support 5 GHz or WPA3)</li>
+            <li>Kindle WiFi on &rarr; connect to hotspot</li>
+            <li>KUAL &rarr; KOReader (no framework)</li>
+            <li>Search &rarr; Anna's Archive &rarr; type query</li>
+            <li>Set format to <strong>EPUB</strong> (recommended for 6" screen &mdash; fixed-layout PDFs are painful at 600x800)</li>
+            <li>Pick result &rarr; downloads via LibGen mirrors &rarr; open and read</li>
+        </ol>
+        <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Plugin Settings</h3>
+        <ul>
+            <li><strong>Download directory</strong> &mdash; where books save</li>
+            <li><strong>Language filter</strong> &mdash; 30 languages</li>
+            <li><strong>Format filter</strong> &mdash; EPUB, MOBI, AZW3, PDF, FB2, DJVU, etc.</li>
+            <li><strong>Sort order</strong> &mdash; Relevant, Newest, Oldest, Largest, Smallest</li>
+            <li><strong>WiFi off after download</strong> &mdash; saves battery</li>
+            <li><strong>Base URL override</strong> &mdash; for when auto-detected domain dies</li>
+        </ul>
+        <p style="margin-top: 1rem;">Plugin auto-detects current Anna's Archive domain via Wikipedia (cached 12h). No account/API key/login needed.</p>
+    </div>
+
+    <div class="faq">
+        <h2>Troubleshooting</h2>
+
+        <div class="faq-item">
+            <h4>Plugin can't connect / TLS errors</h4>
+            <p>KOReader bundles its own curl but this is unconfirmed on kindle-legacy with Anna's Archive.</p>
+            <p><strong>Fallback:</strong> Set up <a href="https://github.com/linuxserver/docker-calibre-web">Calibre-Web</a> on your server over <strong>plain HTTP</strong> and use KOReader's OPDS client. Bypasses TLS entirely.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>DNS resolution failures</h4>
+            <p>Anna's Archive domains rotate due to legal pressure. As of June 2026: <code>annas-archive.gl</code>, <code>.pk</code>, <code>.gd</code>.</p>
+            <ul>
+                <li>Check on your phone first</li>
+                <li>Use plugin's base URL override</li>
+                <li>Check <a href="https://en.wikipedia.org/wiki/Anna%27s_Archive">Wikipedia</a> for current domains</li>
+                <li>Try DNS 1.1.1.1 or 8.8.8.8 on your hotspot</li>
+            </ul>
+        </div>
+
+        <div class="faq-item">
+            <h4>Out of memory / crashes</h4>
+            <ul>
+                <li>Always use "no framework" launch mode</li>
+                <li>Keep searches specific ("Dune Frank Herbert" not "science fiction")</li>
+                <li>Fall back to OPDS/Calibre-Web if persistent</li>
+            </ul>
+        </div>
+
+        <div class="faq-item">
+            <h4>WiFi won't connect to hotspot</h4>
+            <ul>
+                <li>2.4 GHz only (not 5 GHz or "auto")</li>
+                <li>WPA2-PSK (not WPA3)</li>
+                <li>Simple password, no special characters</li>
+            </ul>
+        </div>
+
+        <div class="faq-item">
+            <h4>Downloaded book won't open</h4>
+            <ul>
+                <li>Corrupted download &mdash; re-download (LibGen mirrors can be flaky)</li>
+                <li>DRM-protected files won't work (rare from Anna's Archive)</li>
+            </ul>
+        </div>
+
+        <div class="faq-item">
+            <h4>Does my case with built-in light still work?</h4>
+            <p>Yes. The Amazon Kindle Keyboard case light draws power through the <strong>physical hinge connector</strong>. It's pure hardware &mdash; turns on when cover is open and Kindle is powered. Jailbreak, KOReader, everything here is software only. Light works exactly as before.</p>
+        </div>
+    </div>
+
+    <div class="faq" style="margin-top: 2.5rem;">
+        <h2>Reference Links</h2>
+        <div class="links-grid">
+            <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="link-card" target="_blank">
+                <div class="link-title">NiLuJe's Snapshot Thread</div>
+                <div class="link-desc">All jailbreak files, MKK, DevCerts, KUAL, MRPI</div>
+            </a>
+            <a href="https://github.com/koreader/koreader/releases" class="link-card" target="_blank">
+                <div class="link-title">KOReader Releases</div>
+                <div class="link-desc">Download kindle-legacy package</div>
+            </a>
+            <a href="https://github.com/fischer-hub/annas.koplugin" class="link-card" target="_blank">
+                <div class="link-title">annas.koplugin</div>
+                <div class="link-desc">Anna's Archive plugin for KOReader</div>
+            </a>
+            <a href="https://kindlemodding.org/jailbreaking/Legacy/K2DXDXGK3-Jailbreak/" class="link-card" target="_blank">
+                <div class="link-title">KindleModding.org K3 Guide</div>
+                <div class="link-desc">Detailed jailbreak walkthrough</div>
+            </a>
+            <a href="https://kindlemodding.org/jailbreaking/post-jailbreak/koreader.html" class="link-card" target="_blank">
+                <div class="link-title">KOReader Install Guide</div>
+                <div class="link-desc">KindleModding.org post-jailbreak</div>
+            </a>
+            <a href="https://github.com/koreader/koreader/wiki/Installation-on-Kindle-devices" class="link-card" target="_blank">
+                <div class="link-title">KOReader Wiki</div>
+                <div class="link-desc">Official install docs for all Kindles</div>
+            </a>
+            <a href="https://wiki.mobileread.com/wiki/K3_Index" class="link-card" target="_blank">
+                <div class="link-title">MobileRead K3 Index</div>
+                <div class="link-desc">Complete K3 homebrew index</div>
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Anna%27s_Archive" class="link-card" target="_blank">
+                <div class="link-title">Anna's Archive (Wikipedia)</div>
+                <div class="link-desc">Current working domains</div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>Last updated: June 2026. For Kindle Keyboard (3rd Gen), firmware 3.0-3.4.3.</p>
+</footer>
+
+</body>
+</html>
