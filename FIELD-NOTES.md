@@ -181,3 +181,42 @@ Two cheap checks caught nothing bad this time but are worth doing every time:
 > `mirror/niluje/` (jailbreak, MKK, KUAL, MRPI), guide Step 1 corrected, correct `.bin`
 > for B006/3.4.3 identified and validated. Next: stage the `.bin` to the Kindle root and
 > run the actual jailbreak. (DevCerts for Step 3 still to be sourced + mirrored.)
+
+---
+
+## Chapter 2 — Running It on the Device (Steps 1–2)
+
+### Step 1 (jailbreak) — DONE, and here's how we *knew*
+Copied `Update_jailbreak_0.13.N_k3g_install.bin` to the Kindle root (sha256 verified on
+both sides), ejected, ran **Home → Menu → Settings → Menu → "Update Your Kindle"**. The
+device rebooted normally and came back alive. The on-device proof, visible over USB:
+
+- **The `.bin` was gone** from the root afterward — consumed by the update. A device that
+  *rejected* the file (wrong model/firmware) leaves it sitting there untouched.
+- **A new `linkjail/` folder appeared** on the root, containing `bin/`, `etc/`, `info.txt`.
+  `linkjail` is the name of NiLuJe's jailbreak mechanism (it's `src/linkjail/` in the
+  package). Its presence on the root is the cleanest no-tools confirmation the jailbreak
+  is active. This is now baked into the guide's Step 1 success block.
+
+So you don't actually need KUAL to launch before you trust Step 1 — check for `linkjail/`.
+
+### A near-miss worth internalizing: `find ... | head -1` picked the WRONG variant
+Prepping Step 2, a loose glob (`Update_mkk-20141129-k3g*install.bin`) matched **both**
+`k3g-B006` *and* `k3gb-B00A` (because `k3g*` also matches `k3gb`), and `head -1` silently
+grabbed the **B00A International** file. On a B006 device that's exactly the wrong-variant
+soft-brick the whole guide warns about. **Lesson: pin the full discriminator** (`k3g-B006`,
+not `k3g*`) and exclude `uninstall`. We re-pinned and verified the correct B006 bin
+(sha256 `ea26f930…`, magic `FC02`) before copying. When an assistant is choosing files,
+"close enough" globs are dangerous — match the serial exactly.
+
+### MKK may already be bundled in the jailbreak
+NiLuJe's MKK README says: *"Your JB version should come with MKK bundled, meaning you can
+skip this post... Just make sure to reboot after a fresh JB install!"* The 0.13.N
+jailbreak README doesn't explicitly confirm it, so we didn't assume. Re-installing MKK is
+harmless (it just re-lays the same kit), and skipping it risks a blank-screen KUAL crash
+at Step 5 — so we install it anyway. Either way, **Step 3's 2025 DevCerts is still
+required**, because the keystore MKK lays down is the 2014 one that expired 2025-04-17.
+
+> **Status:** Step 1 CONFIRMED on-device (linkjail present). Step 2 MKK (`k3g-B006`)
+> staged to root + verified; awaiting the "Update Your Kindle" reboot to confirm. Then
+> Step 3 (DevCerts), Step 4 (block OTA), Step 5 (KUAL = visible payoff).

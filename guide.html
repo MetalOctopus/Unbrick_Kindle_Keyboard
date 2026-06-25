@@ -130,7 +130,9 @@ Update_jailbreak_0.13.N_k3gb_install.bin   B00A (K3 3G Intl)</pre>
                 <li>Safely eject.</li>
                 <li>On Kindle: <kbd>Home</kbd> &rarr; <kbd>Menu</kbd> &rarr; <kbd>Settings</kbd> &rarr; <kbd>Menu</kbd> &rarr; <strong>"Update Your Kindle"</strong></li>
             </ol>
-            <div class="outcome outcome-success"><strong>Success:</strong> Kindle reboots normally. "Update Your Kindle" may now be greyed out (expected). You may see a brief <code>JailBroken</code> message during reboot.</div>
+            <div class="outcome outcome-success"><strong>Success:</strong> Kindle reboots normally. "Update Your Kindle" may now be greyed out (expected). You may see a brief <code>JailBroken</code> message during reboot.
+                <p style="margin-top:0.6rem;"><strong>Verify it took (over USB):</strong> reconnect the Kindle as a drive and check the root. Two tells, both confirmed on a real B006/3.4.3 device: (1) the jailbreak <code>.bin</code> is <strong>gone</strong> (consumed by the update &mdash; a rejected one would still be sitting there), and (2) a new <code class="path">linkjail/</code> folder has appeared on the root (containing <code>bin/</code>, <code>etc/</code>, <code>info.txt</code>). That folder <em>is</em> the jailbreak.</p>
+            </div>
             <div class="outcome outcome-fail"><strong>Failed - "Update Your Kindle" greyed out before you try:</strong> Wrong .bin for your model/firmware. Recheck serial prefix.</div>
             <div class="outcome outcome-fail"><strong>Failed - U006 error:</strong> Normal on firmware 2.x (ignore it). On 3.x, wrong .bin.</div>
             <div class="outcome outcome-fail"><strong>Failed - stuck on boot screen:</strong> Hold power 30+ seconds to force reboot. Plug into USB, delete the .bin, reboot. Device is fine.</div>
