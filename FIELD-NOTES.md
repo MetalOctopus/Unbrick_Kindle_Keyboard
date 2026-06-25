@@ -128,3 +128,56 @@ You'll do this ~7 times. Two things make it less painful:
 - **Skip the password prompts (optional):** if you want the assistant to handle the
   mount/unmount cycle itself, add a passwordless sudo rule for just those two commands
   (e.g. via `visudo`). Your call — it trades a little security for a lot less friction.
+
+---
+
+## Chapter 1 — Finding the Files (and Keeping Them Forever)
+
+These devices will outlive their software's hosting. NiLuJe's MobileRead thread is 15+
+years old; the certs already expired once (April 2025). **So the rule for this project
+is: every file the guide depends on gets mirrored into `mirror/` with a source URL,
+retrieval date, and SHA-256.** Don't trust a link you can't re-download in 2042.
+
+### Getting to the real download URLs was the whole battle
+What *didn't* work, so you don't repeat it:
+- **Scraping the MobileRead thread.** As a guest you get forum chrome, not the post body
+  with the attachment links. Dead end.
+- **Trusting an AI summary of the page.** A quick fetch-and-summarize gave a plausible
+  base URL that 404'd on every file, and named KUAL/MRPI versions that turned out not to
+  be what the index actually serves. Plausible ≠ correct.
+- **KindleModding.org's download table** is rendered by JavaScript, so a static fetch
+  sees an empty table.
+
+What *did* work: a web search surfaced **NiLuJe's actual public file index** —
+`storage.gra.cloud.ovh.net/v1/AUTH_2ac4bfee353948ec8ea7fd1710574097/mr-public/index.html`
+— which lists every file with full, working links. Container *listing* is disabled (a
+bare `?format=json` returns Unauthorized), but the `index.html` and the individual files
+are public. That index is the source of truth. There's also a GitHub mirror org,
+**KindleModding** (`github.com/KindleModding/K2-DX-DXG-K3`, `.../Hotfix`), which is the
+likely home of the newer 2025 cert/keystore files.
+
+### Corrections this forced into the guide
+Verifying against the *actual* tarball contents (not the prose) turned up real drift:
+- The jailbreak download is **`kindle-jailbreak-0.13.N-r18833.tar.xz`** (a tar.xz under
+  `Legacy/`), not the `.zip` the guide named.
+- The `.bin` inside is **`Update_jailbreak_0.13.N_k3g_install.bin`** — the version
+  `0.13.N` is *in the filename*. The guide's `Update_jailbreak_k3g_install.bin` doesn't
+  exist.
+- NiLuJe's README settles the firmware question concretely: the `-3.0-to-3.2` variants
+  are for **FW ≤ 3.2 only**; **FW 3.3.x/3.4.x uses the plain file**. (Our device: B006 /
+  3.4.3 → plain `k3g`.)
+- The jailbreak installs via the **`.bin` + "Update Your Kindle"** method (confirmed in
+  the README). An AI summary had claimed "K3 installs via MRPI" — wrong; MRPI is only for
+  KUAL *extensions* later (Steps 5–6).
+
+### Always verify the binary before flashing
+Two cheap checks caught nothing bad this time but are worth doing every time:
+- **Magic header:** a real Kindle update package starts with a known signature. Ours
+  began with `FC02` (the signed-OTA format for K3-era devices) — `head -c 4 file.bin | xxd`.
+- **Checksum + record it:** `sha256sum` every mirrored file into `mirror/niluje/SHA256SUMS`
+  so the next person can `sha256sum -c` and know they have the same bytes we flashed.
+
+> **Status: CONFIRMED.** Real URLs found, four packages mirrored + checksummed in
+> `mirror/niluje/` (jailbreak, MKK, KUAL, MRPI), guide Step 1 corrected, correct `.bin`
+> for B006/3.4.3 identified and validated. Next: stage the `.bin` to the Kindle root and
+> run the actual jailbreak. (DevCerts for Step 3 still to be sourced + mirrored.)

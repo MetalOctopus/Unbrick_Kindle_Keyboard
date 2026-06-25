@@ -114,14 +114,15 @@
     <div class="step" id="step1">
         <div class="step-header"><div class="step-number">1</div><h3>Jailbreak the Kindle</h3></div>
         <div class="step-body">
-            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kindle-jailbreak-0.13.N.zip</a></p>
+            <p><strong>Download:</strong> <a href="https://www.mobileread.com/forums/showthread.php?t=225030" class="download-link">kindle-jailbreak-0.13.N-r18833.tar.xz</a> &mdash; it's a <code>.tar.xz</code> (not a zip) from NiLuJe's <code>mr-public</code> storage, under <code>Legacy/</code>. A verified copy is mirrored in this repo at <code class="path">mirror/niluje/</code>.</p>
             <ol>
-                <li>Extract the zip. Find the correct <code>.bin</code>:
-                    <pre>Update_jailbreak_k3g_install.bin   B006 (3G+WiFi)
-Update_jailbreak_k3w_install.bin   B008 (WiFi only)
-Update_jailbreak_k3gb_install.bin  B00A (International 3G)</pre>
-                    If firmware is <strong>3.0-3.2</strong>, check the README for alternate files.
+                <li>Extract (use 7-Zip on Windows; tar.xz may need two rounds). Inside <code>Jailbreak/</code> find the correct <code>.bin</code> &mdash; <strong>the version number <code>0.13.N</code> is part of the filename</strong>:
+                    <pre>Update_jailbreak_0.13.N_k3g_install.bin    B006 (K3 3G US)
+Update_jailbreak_0.13.N_k3w_install.bin    B008 (K3 WiFi)
+Update_jailbreak_0.13.N_k3gb_install.bin   B00A (K3 3G Intl)</pre>
+                    <strong>Firmware matters.</strong> The package also ships <code>..._k3g-3.0-to-3.2_install.bin</code> variants. Those are for FW <strong>3.2 and older ONLY</strong>. On FW <strong>3.3.x / 3.4.x</strong> (incl. 3.4.3) use the <strong>plain</strong> file (e.g. <code>Update_jailbreak_0.13.N_k3g_install.bin</code>). Using the wrong one greys out "Update Your Kindle".
                 </li>
+                <li>This is a fresh jailbreak &mdash; <strong>ignore the <code>_uninstall.bin</code></strong> files (only needed when re-flashing over an existing jailbreak on a 3.x device).</li>
                 <li>Connect Kindle via USB.</li>
                 <li><strong>Delete</strong> any existing <code>.bin</code> files or <code>update.bin.tmp.partial</code> on the root.</li>
                 <li>Copy your <code>.bin</code> to the <strong>root</strong> of the Kindle drive.</li>
