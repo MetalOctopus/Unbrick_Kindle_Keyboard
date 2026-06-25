@@ -224,7 +224,18 @@ out. Over USB afterward: the `.bin` was **consumed** off the root and `linkjail/
 present — MKK applied cleanly on top of the jailbreak. As expected, no visible change yet;
 the real proof comes when KUAL launches (Step 5).
 
-> **Status:** Steps 1 & 2 CONFIRMED on-device. Step 3 DevCerts keystore
-> (`Update-mkk-20250419-k3g-B006_keystore-install.bin`, sha256 `8958f1b5…`) staged to root
-> + verified; awaiting its "Update Your Kindle" reboot. Then Step 4 (block OTA) and Step 5
-> (KUAL = first visible payoff, and the true confirmation the whole cert/MKK chain worked).
+### Step 3 (DevCerts) — DONE
+Staged `Update-mkk-20250419-k3g-B006_keystore-install.bin` (note the **hyphen**), flashed via
+"Update Your Kindle". Rebooted normally; over USB the `.bin` was consumed and `linkjail/`
+still present. The 2014 keystore is now refreshed with the 2025 one — the thing that makes
+KUAL actually launch.
+
+### Step 4 (block OTA) — DONE, entirely over USB
+No flash, no device menus: just created an empty folder named exactly `update.bin.tmp.partial`
+in the Kindle root (`mkdir` over the WSL mount) and verified it's there. This is the cheapest
+step and the assistant can do it without the user touching the device.
+
+> **Status:** Steps 1–4 CONFIRMED on-device. Step 5 KUAL staged — `KUAL-KDK-1.0.azw2`
+> (sha256 `933e55a5…`) copied into **`documents/`** (NOT root — KUAL is opened like a book,
+> not flashed). Awaiting the user opening KUAL from Home: a menu = the whole jailbreak/MKK/
+> cert chain is proven. Then Step 6 (MRPI), 7 (KOReader), 8 (Anna's plugin).
