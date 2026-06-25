@@ -332,3 +332,22 @@ missing, and the Quickstart-guide success tell).
 > **Status:** Steps 1–5 + 7 CONFIRMED on-device (Step 6/MRPI skipped as unnecessary). Only
 > Step 8 (annas.koplugin) remains — the on-device TLS-to-Anna's-Archive question (the project's
 > biggest original unknown) gets answered next.
+
+## Step 8 — installed; finding the search menu (NO TOUCHSCREEN gotcha)
+`annas.koplugin` copied into `koreader/plugins/` (127/127 files). The plugin (`main.lua`)
+registers its menu item with `sorting_hint = "search"` and `text = "Anna's Archive"`, guarded
+by `if not self.ui.view` — so it appears **only in the file-browser view** (before a book is
+open), under KOReader's **Search** menu.
+
+**Big correction:** the Kindle Keyboard has **no touchscreen** — I'd been telling the user to
+"tap the top of the screen," which is impossible on the K3. KOReader is driven entirely by the
+**physical buttons**: `Menu` opens the top icon bar, the **5-way** moves/selects, page buttons
+scroll, the keyboard types, Back goes back. Swept all "tap"/touch language out of README +
+CHECKLIST and added an explicit "🎮 no touchscreen — use these buttons" primer to the KOReader
+section in both (guide.html already listed the physical controls). To reach the plugin on a K3:
+**Menu → 5-way to the magnifying-glass (Search) icon → center → "Anna's Archive."**
+
+> **Status:** Step 8 plugin INSTALLED on-device; the actual Anna's Archive search/download (and
+> with it the TLS-on-kindle-legacy answer) is **not yet confirmed** — pending the user driving
+> the on-device menu (Menu key → Search → Anna's Archive) while on WiFi. I cannot perform that
+> on-device step myself; KOReader's UI isn't reachable from the host.

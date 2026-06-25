@@ -62,10 +62,15 @@ Kindle: Home → Menu → Settings → Menu → "Update Your Kindle" → let it 
 - [ ] Opened **KUAL → KOReader → "Start KOReader (no framework)"**
 - [ ] **Looks right when:** a clean file-browser screen appears that looks nothing like the normal Kindle
 
+> 🎮 **No touchscreen!** Drive KOReader with buttons: **`Menu`** = open the top menu bar,
+> **5-way pad** = move + center to select, **page buttons** = scroll, **keyboard** = type,
+> **Back** = go back. (Ignore any "tap the screen" wording — that's for touch Kindles.)
+
 ## ☐ Step 8 — Anna's Archive plugin (search & download books on the Kindle)
 - [ ] Copied the **`annas.koplugin`** folder into **`koreader/plugins/`** on the Kindle
-- [ ] Opened KOReader (KUAL → KOReader → no framework) → **Search** menu
-- [ ] **Looks right when:** **"Anna's Archive"** appears in the Search menu
+- [ ] WiFi connected (2.4 GHz / WPA2) — needed for the search to work
+- [ ] In KOReader: press **`Menu`** → 5-way to the **magnifying-glass (Search)** icon → center → **Anna's Archive**
+- [ ] **Looks right when:** **"Anna's Archive"** is listed in that Search menu; opening it lets you type a title and get results
 
 ---
 

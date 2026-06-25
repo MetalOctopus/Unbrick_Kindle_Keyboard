@@ -187,7 +187,7 @@ full, slowly:
 >   this between most steps — it's expected, not a problem.**
 > - This force-restart is completely safe; it does not undo any step you've completed.
 
-If **"Update Your Kindle" is greyed out and you can't tap it**, that means the file on the
+If **"Update Your Kindle" is greyed out and you can't select it**, that means the file on the
 Kindle isn't right for your model — see [If something goes wrong](#-if-something-goes-wrong).
 Nothing is broken; you'll just swap in the correct file.
 
@@ -364,10 +364,21 @@ any book format.
 
 **✅ What success looks like:** the whole screen changes into a clean **file browser** that looks
 nothing like the normal Kindle (top menu bar, folders listed) — **and the very first time, it
-opens a built-in "Quickstart guide" document.** That's KOReader running. Use the page-turn
-buttons, the arrow pad to move around, the center button to select, and the keyboard to type.
-*(To get back to your normal Kindle later: in KOReader, tap the top of the screen for the menu →
-Exit/Quit. Your old books are untouched.)*
+opens a built-in "Quickstart guide" document.** That's KOReader running.
+
+> ### 🎮 Controlling KOReader on the Kindle Keyboard (IMPORTANT — there's no touchscreen!)
+> The Kindle Keyboard has **no touchscreen** — you drive everything with the **physical
+> buttons**, not by tapping. So whenever a KOReader instruction says "tap" or "open the menu,"
+> on this device that means:
+> - **`Menu` button** (the physical one) → opens/closes KOReader's **top menu bar** of icons.
+> - **5-way controller** (the square direction pad) → move the highlight around; press **its
+>   center** to select.
+> - **Page-turn buttons** → turn pages / scroll lists.
+> - **Physical keyboard** → type (for searching, etc.).
+> - **Back button** → go back / close a menu.
+>
+> *(To get back to your normal Kindle later: press **Menu** → navigate to **Exit/Quit**. Your
+> stock Kindle and its books are untouched.)*
 
 ### Step 8 — Anna's Archive plugin (search & download books on the Kindle)
 **What it does:** adds book searching right inside KOReader.
@@ -387,11 +398,17 @@ Exit/Quit. Your old books are untouched.)*
                  └─ ...
    ```
 3. Safely eject, unplug. Launch **KOReader** (KUAL → KOReader → Start No Framework). The
-   Anna's Archive search lives **inside KOReader**, not in KUAL: tap the **top of the screen**
-   for KOReader's menu → the **Search** (magnifying-glass) menu.
+   Anna's Archive search lives **inside KOReader**, not in KUAL. To get to it (no touchscreen —
+   use buttons):
+   - Press the **`Menu` button** → KOReader's top icon bar appears.
+   - Use the **5-way controller** to move along the top icons to the **magnifying-glass
+     (Search)** icon, press **center** to open it.
+   - Move **down** to **"Anna's Archive"**, press **center**.
 
-**✅ What success looks like:** "Anna's Archive" appears in the Search menu. Choose it, type a
-book title with the keyboard, and results appear to download.
+**✅ What success looks like:** "Anna's Archive" is listed in that Search menu. Open it, type a
+book title on the **physical keyboard**, select **Search**, and results appear to download.
+*(It only shows up in the **file-browser** view — i.e. before you've opened a book — which is
+where you land when KOReader starts. Make sure WiFi is connected first, or the search errors.)*
 **😟 If searching gives a connection error:** this is the one part we haven't fully confirmed on
 this old model yet. If it happens, there's a backup plan (a small library you run at home over
 plain web) described in **[guide.html](guide.html)**'s troubleshooting.
@@ -413,7 +430,7 @@ plain web) described in **[guide.html](guide.html)**'s troubleshooting.
 
 Don't panic — these old Kindles are tough and recoverable.
 
-- **"Update Your Kindle" is greyed out / won't tap.** You have the wrong file for your model
+- **"Update Your Kindle" is greyed out / won't select.** You have the wrong file for your model
   (or it didn't copy fully). Plug in, delete the `.bin` from the root, and copy the **correct**
   one for your serial (double-check `k3g` vs `k3gb`). Try again. *No harm done.*
 - **The screen seems frozen or stuck on a logo.** Hold the **power switch for ~30 seconds** to
