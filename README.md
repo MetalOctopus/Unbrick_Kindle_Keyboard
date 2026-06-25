@@ -142,8 +142,19 @@ full, slowly:
 6. Wait for it to finish restarting (back to the Home screen). That step is done. ✅
 
 > 💡 **Reassurance for the nervous:** while it installs you may see "Your Kindle is
-> restarting…" and the screen may go blank or flash for up to a minute. **This is normal.**
-> Don't unplug it or press anything during the restart — just let it finish.
+> restarting…" and the screen may go blank or flash for a minute. **This is normal.** Don't
+> unplug it or press anything during the restart — let it finish.
+
+> ### 🔄 EXPECTED: the Kindle will seem to "hang" — this is normal, here's the fix
+> These are 15-year-old devices and they're **slow**. After almost every step — finishing an
+> update, going back to Home, or launching an app — the screen may **freeze, go blank, or sit
+> on the "restarting" screen for a minute or two.** That does **not** mean you broke anything.
+>
+> - **First, just wait ~2 minutes.** It's often still working, only slowly.
+> - **If it's still frozen after that, hold the power switch for ~30 seconds** until the screen
+>   flashes/reboots, then let go. It restarts cleanly and you carry on. **You will probably do
+>   this between most steps — it's expected, not a problem.**
+> - This force-restart is completely safe; it does not undo any step you've completed.
 
 If **"Update Your Kindle" is greyed out and you can't tap it**, that means the file on the
 Kindle isn't right for your model — see [If something goes wrong](#-if-something-goes-wrong).

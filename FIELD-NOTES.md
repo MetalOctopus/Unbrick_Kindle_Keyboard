@@ -304,3 +304,18 @@ KindleModding KUAL/Hotfix to a documented alternative path. Mirrored the NiLuJe 
 > **Status:** Steps 1–5 CONFIRMED on-device. KUAL launches. Next: Step 6 (MRPI) / Step 7
 > (KOReader) — and we'll test whether MRPI is actually needed for KOReader or is a skippable
 > step on this path.
+
+---
+
+## Device quirk (applies to EVERY step): it hangs, and that's normal
+
+Throughout the run, the K3 "hung" constantly — frozen screen, blank, or stuck on the
+"restarting" screen after updates / returning Home / launching apps. Every time, the fix was
+the same: wait ~2 minutes, and if still stuck, **hold the power switch ~30 seconds** to force
+a clean reboot. It never indicated a real failure and never undid a completed step. This is
+just a slow 15-year-old device.
+
+This was important enough to surface as a **DIY reassurance** in all three user-facing docs
+(README flash-pattern callout + golden rule, CHECKLIST golden rule ⑤, guide.html warning box
+before Step 1) — a non-technical user would otherwise assume a hang = bricked and panic. KOReader
+(Step 7) copied to the device (1015/1015 files verified); awaiting on-device launch confirmation.

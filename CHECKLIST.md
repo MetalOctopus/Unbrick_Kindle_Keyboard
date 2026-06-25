@@ -10,7 +10,9 @@ identical steps with their own file.
 
 **Golden rules:** ① Don't factory-reset the Kindle. ② Always pick the file that matches YOUR
 serial. ③ If "Update Your Kindle" is greyed out, you used the wrong file — no harm, just redo
-with the right one. ④ Take your time.
+with the right one. ④ Take your time. ⑤ **The Kindle WILL seem to freeze/hang between steps —
+this is normal on these old devices.** Wait ~2 min; if still stuck, **hold the power switch
+~30 s** to force a safe restart, then carry on. Expect to do this often; it breaks nothing.
 
 ---
 

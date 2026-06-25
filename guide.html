@@ -123,6 +123,16 @@
         <div class="outcome outcome-success" style="margin-top: 1rem;"><strong>Good news &mdash; you don't have to hunt for anything.</strong> Every file this guide uses is mirrored, verified, and checksummed in the <code class="path">mirror/</code> folder of this repository. You can complete the whole process from that folder alone &mdash; no forum account, no dead links. Original sources are still linked at each step in case you'd rather grab them fresh. Check integrity with <code>sha256sum -c SHA256SUMS</code> inside <code class="path">mirror/</code>.</p>
     </div>
 
+    <div class="prereq-box" style="border-color: var(--warning);">
+        <h2 style="color: var(--warning);">🔄 Expect the Kindle to "hang" between steps &mdash; it's normal</h2>
+        <p>These are 15-year-old devices and they are <strong>slow</strong>. After almost every step &mdash; finishing an "Update Your Kindle," returning to Home, or launching an app &mdash; the screen may <strong>freeze, go blank, or sit on the "restarting" screen for a minute or two</strong>. This does <strong>not</strong> mean anything is broken.</p>
+        <ol>
+            <li><strong>Wait ~2 minutes first</strong> &mdash; it's usually still working, just slowly.</li>
+            <li>If it's still frozen, <strong>hold the power switch for ~30 seconds</strong> until the screen flashes/reboots, then release. It restarts cleanly and you continue.</li>
+        </ol>
+        <p>You will likely do this <strong>between most steps</strong>. The force-restart is completely safe and does <strong>not</strong> undo any completed step. (Confirmed on a real B006/3.4.3 unit &mdash; it hung at nearly every step and a 30s power-hold fixed it each time.)</p>
+    </div>
+
     <!-- STEP 1 -->
     <div class="step" id="step1">
         <div class="step-header"><div class="step-number">1</div><h3>Jailbreak the Kindle</h3></div>
