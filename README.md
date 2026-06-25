@@ -216,9 +216,23 @@ WiFi, as extra insurance.)*
 **What it does:** adds a little app-launcher to your Kindle. **This is the exciting one** —
 when it opens, it proves Steps 1–3 all worked.
 
-1. Download **[`KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2)**. This one is a
-   single file — **no unzipping needed.** (It's the up-to-date, correctly-signed version —
-   see the warning box below for why the version matters.)
+> ### ⚠️ Use the KUAL file from THIS repo — not one you found elsewhere
+> This is the #1 trap on the Kindle 3. **Most KUAL copies on the internet — including older
+> forum bundles and other guides — are signed with a developer certificate that EXPIRED on
+> April 17, 2025.** Load one of those and KUAL will refuse to open with *"This title is not
+> signed by a registered developer,"* even if every other step was perfect.
+>
+> **So: only use [`KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2) from this
+> repo's `mirror/kindlemodding/` folder.** It's the re-signed, up-to-date version.
+>
+> **How to tell if you grabbed a bad one:** right-click the file → Properties and check the
+> size. The **correct** file is **131,667 bytes** (~129 KB) and is the single `.azw2` linked
+> above. The common **broken** one is **127,808 bytes** and comes out of a 2022 `KUAL-v2.7.29…`
+> ZIP — if you see that, you have the wrong file. (Also: pick **`KUAL-KDK-1.0.azw2`**, the
+> `1.0` — a `2.0` exists but is for newer Kindles, not the K3.)
+
+1. Download **[`KUAL-KDK-1.0.azw2`](mirror/kindlemodding/KUAL-KDK-1.0.azw2)** (from this repo —
+   see the warning above). It's a single file — **no unzipping needed.**
 2. Plug in the Kindle, and copy that file **into the `documents` folder** on the Kindle.
    ⚠️ This is the one step that does **not** use the root — it goes *inside* `documents`,
    where your books live.
