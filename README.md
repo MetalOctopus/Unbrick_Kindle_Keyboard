@@ -14,6 +14,10 @@ you **exactly what you'll see on the screen when it worked**, so you're never gu
 > have to go hunting through old forums. Take your time. There's no rush and nothing here
 > is a race.
 
+> 🖨️ **Want a simple tick-box version to print and follow?** See
+> **[CHECKLIST.md](CHECKLIST.md)** — the whole process on one page, with a box for each step
+> and what success looks like. Use it to keep your place; come back here for the detail.
+
 ---
 
 ## 🛑 First: "Will this break my Kindle?" — please read, it'll calm your nerves
