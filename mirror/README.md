@@ -1,47 +1,60 @@
-# mirror/ — Archived jailbreak components
+# mirror/ — Archived files (everything you need, kept forever)
 
-These are **local copies of the upstream files** the guide depends on, kept here so the
-rescue procedure survives even if the original hosts disappear. The whole point of this
-project is that these Kindles will outlive their software's hosting — so we mirror.
+**Every file the guide depends on is mirrored here.** You can complete the entire rescue
+using only this folder — no forum account, no hunting dead links, no LLM. These Kindles
+will outlive their software's hosting; this folder is the insurance.
 
-> **Do not trust a link you can't re-download in 20 years.** Every file the guide tells
-> you to fetch should eventually live here, with its source URL, retrieval date, and a
-> SHA-256 so a future user can verify integrity.
+> Verify any copy against the recorded hashes: `sha256sum -c SHA256SUMS` (run from this
+> `mirror/` directory).
 
-## Provenance & integrity
+## What's here
 
-Retrieved **2026-06-25** from NiLuJe's public object storage
-(`storage.gra.cloud.ovh.net/.../mr-public/`, the "NiLuJe's Stuff" index — the canonical
-home of the legacy Kindle jailbreak). Verify any copy with `sha256sum -c SHA256SUMS`.
+| File | Step | What it is | Covers |
+|------|------|-----------|--------|
+| `niluje/kindle-jailbreak-0.13.N-r18833.tar.xz` | 1 | NiLuJe's jailbreak | **All** legacy models (K2/DX/DXG/**K3**), all firmware |
+| `niluje/kindle-mkk-20141129-r18833.tar.xz` | 2 | MobileRead Kindlet Kit (run Java apps) | All K3 variants |
+| `devcerts/DevCerts-20250419-KeyStore.zip` | 3 | **Updated dev certs** (originals expired 2025-04-17) | All K3 variants + K2/DX/K4/K5 |
+| `niluje/KUAL-v2.7.29-g7750a3a-20221017.tar.xz` | 5 | KUAL app launcher (has `KUAL-KDK-1.0.azw2`) | K3 legacy |
+| `niluje/kual-mrinstaller-1.7.N-r18983.tar.xz` | 6 | MRPI package installer | K3 (has `bin/K3/`) |
+| `koreader/koreader-kindle-legacy-v2026.03.zip` | 7 | KOReader reader (modern TLS, OPDS) | `kindle-legacy` = K2–K4 |
+| `annas-koplugin/annas.koplugin-v0.1.8.zip` | 8 | Anna's Archive search/download plugin | any KOReader |
 
-### `niluje/` — from NiLuJe's mr-public
+The single jailbreak tarball (Step 1) contains the `.bin` for **every** legacy device and
+both firmware ranges — so any K2/DX/DXG/K3 owner can pull this one file and find theirs.
 
-| File | Upstream path (under `mr-public/`) | Used by | SHA-256 |
-|------|-----------------------------------|---------|---------|
-| `kindle-jailbreak-0.13.N-r18833.tar.xz` | `Legacy/` | Step 1 (jailbreak) | `8f5c8a78e3c4574232acf4783da1c66959078a4e10116c30cd40b16fb98e3ac3` |
-| `kindle-mkk-20141129-r18833.tar.xz` | `Touch/` | Step 2 (MKK) | `3d7289f1ddcf18cebb67053cd33ac5ecd7b4a8116bd11d3c75dd6f220a7d8d9d` |
-| `KUAL-v2.7.29-g7750a3a-20221017.tar.xz` | `KUAL/` | Step 5 (KUAL) | `bc193e4e954631930b8e58a22881ee690b8f5b73eeb713d27f74e5ab923d5303` |
-| `kual-mrinstaller-1.7.N-r18983.tar.xz` | `KUAL/` | Step 6 (MRPI) | `dd24ebe74da300eb0799710377f0219cac6cd3dccbe5847ace4d89efe5bcdcb9` |
+## Which file is mine? (K3 — by serial prefix)
 
-Version on the live index (2026-06-25): jailbreak `0.13.N @ r18833`, dated 2023-Jan-04.
+Check **Home → Menu → Settings** on the Kindle; note the serial prefix and firmware.
 
-### Notes / discrepancies vs. the guide as written
+| Serial | Model | Jailbreak `.bin` (FW 3.3.x/3.4.x) | Jailbreak `.bin` (FW ≤ 3.2) | DevCerts `.bin` |
+|--------|-------|-----------------------------------|------------------------------|-----------------|
+| `B006` | K3 3G US (k3g) | `Update_jailbreak_0.13.N_k3g_install.bin` | `..._k3g-3.0-to-3.2_install.bin` | `Update-mkk-20250419-k3g-B006_keystore-install.bin` |
+| `B008` | K3 WiFi (k3w) | `Update_jailbreak_0.13.N_k3w_install.bin` | `..._k3w-3.0-to-3.2_install.bin` | `Update-mkk-20250419-k3w-B008_keystore-install.bin` |
+| `B00A` | K3 3G Intl (k3gb) | `Update_jailbreak_0.13.N_k3gb_install.bin` | `..._k3gb-3.0-to-3.2_install.bin` | `Update-mkk-20250419-k3gb-B00A_keystore-install.bin` |
 
-- **Filenames carry the version.** The actual jailbreak `.bin` inside the tarball is
-  `Update_jailbreak_0.13.N_k3g_install.bin`, **not** `Update_jailbreak_k3g_install.bin`.
-- **Firmware split is explicit.** NiLuJe ships two K3 variants per model: a plain one and
-  a `-3.0-to-3.2` one. The `-3.0-to-3.2` files are for FW **≤ 3.2 only**; FW **3.3.x/3.4.x**
-  (our 3.4.3) uses the **plain** `k3g` file. Using the wrong one greys out "Update Your
-  Kindle" — the guide's only real soft-brick failure mode.
-- **KUAL/MRPI here are older** (`v2.7.29` / `r18983`) than the versions named in the
-  guide (`v2.7.37` / `r19303`). These are what the public index currently serves; the
-  newer builds (and the mandatory **DevCerts/keystore** for Step 3, post April-2025 cert
-  expiry) are not in this index and will be sourced + mirrored separately when we reach
-  those steps.
+(These `.bin`s live *inside* the archives above — extract, pick yours by the table.)
 
-## Still to mirror
+## Provenance
 
-- [ ] DevCerts / updated keystore (Step 3) — mandatory; originals expired 2025-04-17.
-- [ ] KOReader `kindle-legacy` build (Step 7) — large (~tens of MB); from KOReader GitHub releases.
-- [ ] `annas.koplugin` (Step 8) — from fischer-hub GitHub releases.
-- [ ] Newer KUAL / MRPI, if the device run shows the older ones misbehave.
+- **`niluje/`** — retrieved 2026-06-25 from NiLuJe's public storage
+  (`storage.gra.cloud.ovh.net/v1/AUTH_2ac4bfee353948ec8ea7fd1710574097/mr-public/`,
+  the "NiLuJe's Stuff" index). Jailbreak from `Legacy/`, MKK from `Touch/`, KUAL + MRPI
+  from `KUAL/`.
+- **`devcerts/`** — retrieved 2026-06-25 from MobileRead thread t=225030 attachment
+  (`attachment.php?attachmentid=215127&d=1745098511`), filename
+  `DevCerts-20250419-KeyStore.zip`. The 2025-04-19 keystore refresh after the 2025-04-17
+  cert expiry. Not hosted on the OVH index or KindleModding GitHub — the forum attachment
+  is the authoritative source.
+- **`koreader/`** — KOReader `v2026.03`, the `kindle-legacy` build, from the official
+  GitHub release (`github.com/koreader/koreader/releases`).
+- **`annas-koplugin/`** — `v0.1.8` from the upstream GitHub release
+  (`github.com/fischer-hub/annas.koplugin/releases`). Note: this release zip already
+  extracts to a correctly-named `annas.koplugin/` folder (no version-suffix rename needed).
+
+## Verified gotchas (so the guide stays honest)
+
+- Jailbreak `.bin` names include the version: `Update_jailbreak_0.13.N_k3g_install.bin`.
+- DevCerts K3 `.bin` uses a **hyphen**: `Update-mkk-20250419-k3g-B006_keystore-install.bin`
+  (the k4/k5 files in the same zip use an underscore — don't let that confuse you).
+- `-3.0-to-3.2` jailbreak variants are for FW ≤ 3.2 **only**; FW ≥ 3.3 uses the plain file.
+- These `.bin`s are genuine signed Kindle update packages (magic header `FC02`).
