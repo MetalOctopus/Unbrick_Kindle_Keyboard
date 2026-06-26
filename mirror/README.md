@@ -21,7 +21,9 @@ will outlive their software's hosting; this folder is the insurance.
 | `kindlemodding/Update_hotfix_universal.bin` | 5 (alt) | Hotfix 2.5.0 — date-proof certs; alternative cert path (K3 lightly tested) | all |
 | `niluje/kual-mrinstaller-1.7.N-r18983.tar.xz` | 6 *(optional)* | MRPI package installer — **not needed for KOReader**, skip unless another add-on requires it | K3 (has `bin/K3/`) |
 | `koreader/koreader-kindle-legacy-v2026.03.zip` | 7 | KOReader reader (modern TLS, OPDS) | `kindle-legacy` = K2–K4 |
-| `annas-koplugin/annas.koplugin-v0.1.8.zip` | 8 | Anna's Archive search/download plugin | any KOReader |
+| `annas-koplugin/annas.koplugin-FIXED-dcb859a08f54.zip` | 8 | **Anna's Archive search+download plugin (USE THIS)** ✅ fixed scraper, current domains | any KOReader |
+| `annas-koplugin/annas.koplugin-main-dcb859a08f54.tar.gz` | 8 | Full pinned source the FIXED zip was built from (provenance) | — |
+| `annas-koplugin/annas.koplugin-v0.1.8.zip` | 8 | ❌ official release — **downloads BROKEN** (stale scraper, pre domain-seizure); reference only | any KOReader |
 
 The single jailbreak tarball (Step 1) contains the `.bin` for **every** legacy device and
 both firmware ranges — so any K2/DX/DXG/K3 owner can pull this one file and find theirs.
@@ -63,9 +65,15 @@ Check **Home → Menu → Settings** on the Kindle; note the serial prefix and f
   clock-drift-proof), **not** for NiLuJe's DevCerts. Use them together as a fallback path —
   do NOT pair this KUAL with DevCerts (that mismatch is exactly what gave us "not signed by a
   registered developer"). Hotfix is only lightly tested on K3.
-- **`annas-koplugin/`** — `v0.1.8` from the upstream GitHub release
-  (`github.com/fischer-hub/annas.koplugin/releases`). Note: this release zip already
-  extracts to a correctly-named `annas.koplugin/` folder (no version-suffix rename needed).
+- **`annas-koplugin/`** — retrieved 2026-06-26 from `github.com/fischer-hub/annas.koplugin`.
+  The official **v0.1.8 release downloads are BROKEN**: Anna's Archive had a domain seized and
+  changed its site, and v0.1.8's scraper predates the fix (search works, but you get "No
+  download link available"). The author's **main branch** fixes it (rewritten `src/scraper.lua`
+  with current domains + LibGen.li `ads.php?md5=` download extraction) but isn't released yet.
+  So we packaged the main branch **pinned to commit `dcb859a08f5429613b382b06f390b40944d76fc3`**
+  as `annas.koplugin-FIXED-dcb859a08f54.zip` (correctly-named folder, README screenshots
+  stripped to keep it small) — **this is the one to use**. The full source tarball is kept
+  alongside for provenance, and the broken v0.1.8 is kept only for reference.
 
 ## Verified gotchas (so the guide stays honest)
 

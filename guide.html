@@ -276,7 +276,8 @@ Update-mkk-20250419-k3gb-B00A_keystore-install.bin  B00A</pre>
         <div class="step-header"><div class="step-number">8</div><h3>Install Anna's Archive Plugin</h3></div>
         <div class="step-body">
             <p>Search and download books from Anna's Archive directly on the Kindle.</p>
-            <p><strong>Download:</strong> <code>annas.koplugin-v0.1.8.zip</code> &mdash; mirrored at <code class="path">mirror/annas-koplugin/</code> (original: <a href="https://github.com/fischer-hub/annas.koplugin/releases" class="download-link">fischer-hub releases</a>).</p>
+            <p><strong>Download:</strong> <code>annas.koplugin-FIXED-dcb859a08f54.zip</code> &mdash; mirrored at <code class="path">mirror/annas-koplugin/</code> (from the plugin's <a href="https://github.com/fischer-hub/annas.koplugin" class="download-link">latest source</a>).</p>
+            <div class="outcome outcome-warn"><strong>⚠️ Use this FIXED build, not the official "release."</strong> Anna's Archive had a domain seized and changed its site, breaking downloads in the last release (v0.1.8): search works but a result gives <em>"No download link available."</em> The author's newer code fixes it (rewritten <code>src/scraper.lua</code>, current domains) but isn't released yet, so we packaged it here (pinned to a known-good commit). This is the build that actually downloads.</div>
             <ol>
                 <li>Extract. The official release zip already gives you a correctly-named <code>annas.koplugin</code> folder &mdash; <strong>no rename needed</strong>. (If you grabbed source instead and it's <code>annas.koplugin-0.1.8</code>, rename it to <code>annas.koplugin</code>, stripping the version.)</li>
                 <li>USB &rarr; copy into <code class="path">koreader/plugins/</code> on the Kindle:

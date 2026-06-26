@@ -347,7 +347,29 @@ CHECKLIST and added an explicit "🎮 no touchscreen — use these buttons" prim
 section in both (guide.html already listed the physical controls). To reach the plugin on a K3:
 **Menu → 5-way to the magnifying-glass (Search) icon → center → "Anna's Archive."**
 
-> **Status:** Step 8 plugin INSTALLED on-device; the actual Anna's Archive search/download (and
-> with it the TLS-on-kindle-legacy answer) is **not yet confirmed** — pending the user driving
-> the on-device menu (Menu key → Search → Anna's Archive) while on WiFi. I cannot perform that
-> on-device step myself; KOReader's UI isn't reachable from the host.
+### 🎉 BIGGEST UNKNOWN RESOLVED: TLS to Anna's Archive WORKS on the K3
+On WiFi, KOReader → Menu → Search → Anna's Archive → typed a title → **results came back.**
+That means KOReader's bundled networking on the **kindle-legacy** build successfully negotiates
+modern TLS with Anna's Archive on this ARMv5 / 256 MB device. This was the project's single
+biggest risk (flagged "unconfirmed" since day one) — **confirmed working.** The Calibre-Web HTTP
+fallback is now a nice-to-have, not a necessity.
+
+### But: downloads failed on v0.1.8 — "No download link available"
+Search worked; selecting a result errored. Cause: the released **v0.1.8 plugin's scraper is
+stale**. The plugin is a Z-Library plugin adapted to Anna's Archive, and v0.1.8 predates the
+**domain seizure** ("FBI killing Domain") + site changes. Its `main.lua` errors at
+`if not book.download` because nothing populates `book.download`.
+
+**Fix:** the author's **main branch** (not yet released) rewrote scraping into `src/scraper.lua`
+with current domains (`annas-archive.li/.org/.se/.gs`), `/md5/<hash>` extraction, and the actual
+download grab via LibGen.li (`ads.php?md5=…`). Pinned it to commit
+`dcb859a08f5429613b382b06f390b40944d76fc3`, stripped the 2.9 MB of README screenshots, repackaged
+as a correctly-named `annas.koplugin/` zip, and mirrored it as
+`mirror/annas-koplugin/annas.koplugin-FIXED-dcb859a08f54.zip` (+ full source tarball for
+provenance; broken v0.1.8 kept only for reference). Guide Step 8 (README/guide.html/CHECKLIST)
+now points at the FIXED build with the explanation.
+
+> **Status:** Search/TLS CONFIRMED on-device. FIXED plugin built + mirrored + documented;
+> **awaiting on-device install + download test** (need the user to reconnect USB so I can swap
+> the plugin, then they retry a download). If the FIXED build downloads a book, the project is
+> fully, end-to-end DONE.

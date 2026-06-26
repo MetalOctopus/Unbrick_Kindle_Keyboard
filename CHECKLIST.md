@@ -67,6 +67,7 @@ Kindle: Home → Menu → Settings → Menu → "Update Your Kindle" → let it 
 > **Back** = go back. (Ignore any "tap the screen" wording — that's for touch Kindles.)
 
 ## ☐ Step 8 — Anna's Archive plugin (search & download books on the Kindle)
+- [ ] Used the **FIXED** plugin build (`mirror/annas-koplugin/annas.koplugin-FIXED-*.zip`) — the official v0.1.8 release **can't download** (search works but no download link)
 - [ ] Copied the **`annas.koplugin`** folder into **`koreader/plugins/`** on the Kindle
 - [ ] WiFi connected (2.4 GHz / WPA2) — needed for the search to work
 - [ ] In KOReader: press **`Menu`** → 5-way to the **magnifying-glass (Search)** icon → center → **Anna's Archive**

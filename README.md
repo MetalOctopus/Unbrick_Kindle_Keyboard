@@ -119,7 +119,7 @@ Everything is stored in this repository so it can't disappear on you. **Click to
 | Step 5 | **[KUAL app (KUAL-KDK-1.0.azw2)](mirror/niluje/KUAL-KDK-1.0.azw2)** — NiLuJe 2025, matches DevCerts ✅ | [NiLuJe (MobileRead)](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 6 | *(optional — skip; not needed for KOReader)* [MRPI file](mirror/niluje/kual-mrinstaller-1.7.N-r18983.tar.xz) | [NiLuJe's page](https://www.mobileread.com/forums/showthread.php?t=225030) |
 | Step 7 | **[KOReader file](mirror/koreader/koreader-kindle-legacy-v2026.03.zip)** | [KOReader downloads](https://github.com/koreader/koreader/releases) |
-| Step 8 | **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)** | [Plugin downloads](https://github.com/fischer-hub/annas.koplugin/releases) |
+| Step 8 | **[Anna's Archive plugin (FIXED build)](mirror/annas-koplugin/annas.koplugin-FIXED-dcb859a08f54.zip)** ✅ | [plugin source](https://github.com/fischer-hub/annas.koplugin) |
 
 These files end in `.tar.xz`, `.zip`, or `.azw2`. The `.tar.xz` and `.zip` ones are like ZIP
 folders — you **unzip (extract)** them first. The `.azw2` (KUAL) is a single ready file — no
@@ -381,9 +381,16 @@ opens a built-in "Quickstart guide" document.** That's KOReader running.
 > stock Kindle and its books are untouched.)*
 
 ### Step 8 — Anna's Archive plugin (search & download books on the Kindle)
-**What it does:** adds book searching right inside KOReader.
+**What it does:** adds book searching *and downloading* right inside KOReader.
 
-1. Download and unzip the **[Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-v0.1.8.zip)**.
+> ⚠️ **Use the FIXED build in this repo, not the plugin's official "release."** Anna's
+> Archive had a domain seized and changed its site, which broke the download feature in the
+> plugin's last official release (v0.1.8) — search works, but tapping a result gives *"No
+> download link available."* The author's **latest code** fixes it (rewritten scraper, current
+> domains), but they haven't cut a new release yet. So we've packaged that fixed code for you,
+> pinned to a known-good version. **Confirmed: this is the build that actually downloads.**
+
+1. Download and unzip **[the FIXED Anna's Archive plugin](mirror/annas-koplugin/annas.koplugin-FIXED-dcb859a08f54.zip)**.
    You'll get a folder named `annas.koplugin` — **no renaming needed.**
 2. Plug in the Kindle. On the Kindle's root there's already a **`koreader`** folder (from
    Step 7), and inside it a **`plugins`** folder — you are **not** creating these. Open
