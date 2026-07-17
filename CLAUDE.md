@@ -17,25 +17,27 @@ The Write tool fails with EACCES on samba/CIFS mounts. Use `cat > /path << 'EOF'
 - **User's Workflow:** Downloads books on phone, wants to get them onto Kindle wirelessly (especially on planes via phone hotspot).
 - **The Kindle case:** User has the Amazon case with built-in hinge-powered LED light. It's hardware-only, unaffected by any software changes.
 
-## Solution Architecture
+## Solution Architecture (Chosen)
 
-### Primary Path (jailbreak + KOReader + Anna's Archive plugin)
+### Server Side (Unraid Docker)
+1. **Shelfmark** (`ghcr.io/calibrain/shelfmark:latest`, port 8084) — web UI for searching/requesting books from Anna's Archive, Libgen, Z-Library, etc.
+2. **Calibre-Web Automated** (`crocodilestick/calibre-web-automated:latest`, port 8083) — Shelfmark deposits into CWA's ingest folder, CWA auto-imports/converts, serves OPDS catalog
+3. **Shared volume:** one host directory mounted as `/cwa-book-ingest` in CWA and `/books` in Shelfmark
+4. CWA serves plain HTTP by default (no HTTPS to disable — exactly what K3 needs)
+5. OPDS at `http://<server-ip>:8083/opds` (must enable in CWA admin + per-user permissions)
+
+### Kindle Side (one-time USB setup)
 1. Jailbreak K3 via NiLuJe's legacy jailbreak
-2. Install MKK → DevCerts → KUAL → MRPI → KOReader (kindle-legacy) → annas.koplugin
-3. KOReader has its own modern TLS stack, bypassing the stock Kindle's TLS limitation
-4. annas.koplugin lets user search/download from Anna's Archive directly on device
-5. Full guide in `guide.html` and detailed research in `research/`
+2. Install MKK → DevCerts → KUAL → KOReader (kindle-legacy)
+3. KOReader's OPDS client connects to Calibre-Web
 
-### Fallback Path (if TLS still fails in KOReader on K3)
-1. Calibre-Web on Unraid (Docker: `linuxserver/calibre-web` or `crocodilestick/calibre-web-automated`)
-2. Served over plain HTTP (bypasses TLS entirely)
-3. KOReader's OPDS client browses the catalog, or stock browser uses `/basic` endpoint
-4. Remote access via Tailscale/WireGuard for on-the-go use
+### The Workflow
+1. **Find a book:** Open Shelfmark on phone/laptop → search → request → auto-downloads into Calibre
+2. **Get it on Kindle:** Phone hotspot on → Kindle connects → KOReader → OPDS Catalog → new books → grab it
+3. Read.
 
-### Simplest Fallback (no server needed)
-1. HTTP server app on phone serving a local book folder
-2. Kindle connects to phone hotspot
-3. Downloads .mobi via experimental browser or KOReader from `http://192.168.43.1:PORT/`
+### Bonus: annas.koplugin (direct on-device search)
+Also installed in KOReader for searching Anna's Archive directly on the Kindle. Nice for spontaneous downloads. TLS confirmed working on K3.
 
 ## Working Method (how we build this)
 - This repo is a living, field-tested guide. Walk each step on a REAL device, confirm it, then write it up. "Confirmed" = observed on the test device; label anything not yet seen as expected/unverified.
@@ -56,10 +58,10 @@ The Write tool fails with EACCES on samba/CIFS mounts. Use `cat > /path << 'EOF'
 - **MRPI (Step 6) is NOT needed for KOReader** — KOReader ships its own KUAL launcher. Treat it as optional/skippable.
 - Files live on NiLuJe's OVH index (`storage.gra.cloud.ovh.net/.../mr-public/`, listing disabled but `index.html` + direct files work); DevCerts is a MobileRead t=225030 attachment, not on that index.
 
-## Key Unknowns (as of June 2026)
-- **TLS on kindle-legacy KOReader:** Nobody has publicly confirmed that KOReader's bundled curl on the kindle-legacy build can negotiate TLS 1.2+ with Anna's Archive and LibGen mirrors. This is the biggest risk. If it fails, fall back to plain HTTP via Calibre-Web.
-- **RAM on K3:** 256 MB is tight. The annas.koplugin does HTML scraping via regex which should be lightweight, but heavy search results could OOM. Use "no framework" launch mode.
-- **Tailscale on K3:** ARM926EJ-S is very old. Tailscale requires ARMv5+ static binary. Theoretically possible, unconfirmed.
+## Key Unknowns (as of July 2026)
+- **TLS on kindle-legacy KOReader:** CONFIRMED WORKING (commit 9d0f53f). KOReader's bundled curl can do TLS 1.2+ on the K3.
+- **RAM on K3:** 256 MB is tight. Use "no framework" launch mode in KOReader.
+- **Shelfmark maintenance status:** "Stable but not under active maintenance" as of May 2026. Last release v1.3.3 July 2026. Works, don't expect new features.
 
 ## File Structure
 - `README.md` — The main guide / GitHub front page: verbose, hand-holding, non-technical-friendly, with direct download links.
@@ -71,10 +73,10 @@ The Write tool fails with EACCES on samba/CIFS mounts. Use `cat > /path << 'EOF'
 - `CLAUDE.md` — This file (context for Claude Code).
 
 ## Important Links
+- Shelfmark: https://github.com/calibrain/shelfmark
+- Calibre-Web Automated: https://github.com/crocodilestick/calibre-web-automated
 - NiLuJe's MobileRead thread (ALL jailbreak downloads): https://www.mobileread.com/forums/showthread.php?t=225030
 - KOReader releases (kindle-legacy): https://github.com/koreader/koreader/releases
 - annas.koplugin (upstream): https://github.com/fischer-hub/annas.koplugin
 - KindleModding.org K3 jailbreak: https://kindlemodding.org/jailbreaking/Legacy/K2DXDXGK3-Jailbreak/
-- Calibre-Web Docker: https://github.com/linuxserver/docker-calibre-web
-- Calibre-Web Automated: https://github.com/crocodilestick/calibre-web-automated
 - Anna's Archive current domains (check Wikipedia): https://en.wikipedia.org/wiki/Anna%27s_Archive

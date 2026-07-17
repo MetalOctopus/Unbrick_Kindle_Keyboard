@@ -454,9 +454,204 @@ Don't panic — these old Kindles are tough and recoverable.
 
 ---
 
+---
+
+## Part 2 — Your Own Book Library (so you never need Amazon again)
+
+The Kindle-side setup above gets you a device that *can* download books wirelessly. This part
+gives it somewhere to download *from* — your own personal library server, running on any
+computer with Docker (a home server, an old laptop, a NAS like Unraid, whatever).
+
+The two pieces:
+- **Calibre-Web Automated (CWA)** — your library. Stores books, organizes metadata, and serves
+  an OPDS catalog your Kindle can browse wirelessly.
+- **Shelfmark** — a search engine that finds books online and drops them into your library
+  automatically.
+
+The workflow once it's running:
+1. Open Shelfmark on your phone or laptop → search for a book → hit download
+2. Shelfmark grabs the file and drops it into CWA's inbox
+3. CWA auto-imports it, extracts metadata, converts formats if needed
+4. Next time your Kindle connects (phone hotspot → KOReader → OPDS), the book is there
+
+```
+  You (phone/laptop)              Your Server (Docker)              Your Kindle
+┌──────────────────┐          ┌──────────────────────┐          ┌──────────────┐
+│ Shelfmark :8084  │          │ Calibre-Web CWA      │          │ KOReader     │
+│ "I want this     │──file──▶ │ :8083                │◀──WiFi──│ OPDS Client  │
+│  book"           │  ingest  │ Library + OPDS feed   │ hotspot │              │
+└──────────────────┘          └──────────────────────┘          └──────────────┘
+```
+
+> **A note on what you download.** This guide exists because Amazon broke a device you paid
+> for. The tools below can find books from many sources — some free and legal (Project
+> Gutenberg, Open Library), some in a legal grey area. **We built this to access books you own
+> or have a right to read.** What you do with it is between you and your conscience. Don't be
+> the reason nice things get taken away.
+
+---
+
+### What you need
+
+- A computer that can run Docker (Unraid, any Linux box, Windows with Docker Desktop, a
+  Raspberry Pi 4, etc.)
+- About 15 minutes
+- That's it. No accounts, no API keys, no subscriptions.
+
+---
+
+### Step 9 — Install Calibre-Web Automated + Shelfmark
+
+There's a ready-made `docker-compose.yml` in this repo. If you're comfortable with Docker
+Compose, the short version is:
+
+```bash
+git clone https://github.com/MetalOctopus/Unbrick_Kindle_Keyboard.git
+cd Unbrick_Kindle_Keyboard
+docker compose up -d
+```
+
+That starts both containers. If you want to understand what it's doing, or you're on
+Unraid/Portainer/something else, here's the breakdown:
+
+<details><summary><strong>What the docker-compose.yml sets up (click to expand)</strong></summary>
+
+Two containers sharing one folder:
+
+| Container | Image | Port | Purpose |
+|-----------|-------|------|---------|
+| **calibre-web-automated** | `crocodilestick/calibre-web-automated` | **8083** | Your library + OPDS catalog |
+| **shelfmark** | `ghcr.io/calibrain/shelfmark` | **8084** | Book search & download |
+
+Three directories on the host:
+
+| Host path | Mounted in CWA as | Mounted in Shelfmark as | What it's for |
+|-----------|-------------------|------------------------|---------------|
+| `./config/cwa` | `/config` | — | CWA settings & database |
+| `./config/shelfmark` | — | `/config` | Shelfmark settings |
+| `./library` | `/calibre-library` | — | Your actual book files + Calibre database |
+| `./ingest` | `/cwa-book-ingest` | `/books` | **The bridge** — Shelfmark drops files here, CWA picks them up |
+
+The `ingest` folder is the magic. Shelfmark downloads a book into it. CWA's file watcher
+sees the new file, imports it into the library, extracts metadata, optionally converts it,
+and **deletes the original from the ingest folder** (it's now in the library). The whole
+thing is automatic.
+
+**Unraid users:** both images are available in Community Apps. Install them separately and
+point the ingest paths at the same share. If your library lives on the array (not a cache
+drive), set the environment variable `NETWORK_SHARE_MODE=true` on the CWA container to avoid
+SQLite WAL locking issues.
+
+**Portainer / Synology / other Docker UIs:** create two containers with the same volume
+mappings shown above. The key is that one host folder is mounted as `/cwa-book-ingest` in CWA
+and `/books` in Shelfmark.
+
+</details>
+
+---
+
+### Step 10 — Configure Calibre-Web (first-time setup)
+
+After the containers start, open a browser to `http://<your-server-ip>:8083`.
+
+1. **Log in** with the default credentials: **admin** / **admin123**
+2. **Change your password** — Admin (top right) → Edit Users → admin → set a real password.
+3. **Enable the OPDS catalog** (this is what your Kindle will browse):
+   - Admin → Edit Basic Configuration → **Feature Configuration**
+   - Tick **"Enable OPDS Catalog"**
+   - Save
+4. **Allow your user to access OPDS:**
+   - Admin → Edit Users → admin (or whatever user you want)
+   - Tick **"Allow OPDS Access"**
+   - Save
+5. **That's it.** Your OPDS feed is now live at `http://<your-server-ip>:8083/opds`
+
+> **Optional but nice:** under Admin → Edit Basic Configuration → External Binaries, CWA
+> should already have Calibre's conversion tools available. If you want it to auto-convert
+> everything to a specific format (e.g., EPUB), go to CWA Settings (separate from Calibre-Web
+> admin) and set your target format. **You probably don't need this** — KOReader reads EPUB,
+> MOBI, AZW3, PDF, and dozens more natively.
+
+---
+
+### Step 11 — Test Shelfmark
+
+Open `http://<your-server-ip>:8084` in a browser.
+
+1. You'll see a search interface. Type a book title.
+2. Results appear from multiple sources (Anna's Archive, Libgen, Z-Library, etc.).
+3. Hit the download button on a result.
+4. Shelfmark downloads the file into the shared ingest folder.
+5. Within a minute or so, CWA picks it up. Check `http://<your-server-ip>:8083` — the book
+   should appear in your library.
+
+If it shows up in Calibre-Web, the pipeline works. Everything from here is automatic.
+
+---
+
+### Step 12 — Connect your Kindle to the library
+
+This is the payoff. On your Kindle (with KOReader installed from Part 1):
+
+1. Connect to WiFi (your home network, or phone hotspot — same network as the server, or
+   reachable via VPN/Tailscale if you're away from home).
+2. Open **KOReader** (KUAL → KOReader → Start No Framework).
+3. Press the **Menu button** → navigate to the **magnifying glass (Search)** icon → select it.
+4. Choose **"OPDS Catalog"**.
+5. Select the **"+"** to add a new catalog.
+6. Enter:
+   - **Name:** anything (e.g., "My Library")
+   - **URL:** `http://<your-server-ip>:8083/opds`
+7. When prompted, enter your Calibre-Web **username and password** (the one you set in Step 10).
+8. Browse your library. Select a book. Download it. Read it.
+
+**That's it. You now own your reading pipeline end to end.**
+
+> **On an airplane:** search and download the book on your phone via Shelfmark *before* you
+> leave home (or anywhere with internet). Then on the plane: phone hotspot → Kindle WiFi →
+> KOReader OPDS → the book is waiting in your library. The Kindle only needs to reach your
+> phone, and your phone only needs to reach the server — which it already did when you
+> downloaded the book.
+
+> **Away from home without VPN?** The Anna's Archive plugin (Step 8) lets you search and
+> download directly on the Kindle over any internet connection. The server pipeline is for
+> convenience and library management — it's not the only way in.
+
+---
+
+## Recap: what you've built
+
+```
+                    ┌─────────────────────────────────────────────┐
+                    │              Your Server                     │
+   You search ───▶  │  Shelfmark ──▶ ingest ──▶ Calibre-Web (CWA)│
+   on phone/laptop  │               folder       │                │
+                    │                             │ OPDS catalog   │
+                    └─────────────────────────────┼────────────────┘
+                                                  │
+                                            WiFi / hotspot
+                                                  │
+                    ┌─────────────────────────────┼────────────────┐
+                    │         Your Kindle          │                │
+                    │  KOReader ◀── OPDS browse ◀──┘                │
+                    │     │                                         │
+                    │     └── also: Anna's Archive plugin           │
+                    │          (direct search, no server needed)    │
+                    └───────────────────────────────────────────────┘
+```
+
+- **Part 1 (Steps 0–8):** Jailbreak the Kindle, install KOReader, optionally install the
+  Anna's Archive plugin for direct on-device searching.
+- **Part 2 (Steps 9–12):** Set up a self-hosted library with Shelfmark + Calibre-Web
+  Automated. Search from any device, auto-import, serve via OPDS to the Kindle.
+- **No Amazon. No subscriptions. No accounts. Your books, your device, your rules.**
+
+---
+
 ## More detail (optional)
 
 - **[guide.html](guide.html)** — the same guide as a styled web page, with extra troubleshooting.
+- **[docker-compose.yml](docker-compose.yml)** — ready-to-use Docker Compose for the server stack.
 - **[FIELD-NOTES.md](FIELD-NOTES.md)** — our real-device log: every step as we actually did it,
   what matched the instructions and what didn't.
 - **[mirror/](mirror/)** — every file, with checksums (`SHA256SUMS`) so you can confirm a download

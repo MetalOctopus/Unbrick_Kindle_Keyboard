@@ -1,0 +1,53 @@
+###############################################################################
+# Calibre-Web Automated + Shelfmark
+#
+# Your personal book library pipeline:
+#   Shelfmark (search/download) → shared ingest folder → CWA (library/OPDS)
+#
+# Usage:
+#   docker compose up -d
+#
+# After first launch:
+#   1. Open http://<your-server-ip>:8083 → login admin / admin123
+#   2. Admin → Edit Basic Configuration → Feature Configuration →
+#      tick "Enable OPDS Catalog" → Save
+#   3. Admin → Edit Users → admin → tick "Allow OPDS Access" → Save
+#   4. Change the admin password while you're in there
+#   5. Open http://<your-server-ip>:8084 → Shelfmark is ready to search
+#
+# On your Kindle (KOReader):
+#   OPDS Catalog → add http://<your-server-ip>:8083/opds
+#   (it will prompt for your Calibre-Web username/password)
+###############################################################################
+
+services:
+  calibre-web-automated:
+    image: crocodilestick/calibre-web-automated:latest
+    container_name: calibre-web-automated
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Hobart
+    volumes:
+      - ./config/cwa:/config
+      - ./library:/calibre-library
+      - ./ingest:/cwa-book-ingest
+
+  shelfmark:
+    image: ghcr.io/calibrain/shelfmark:latest
+    container_name: shelfmark
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Hobart
+    volumes:
+      - ./config/shelfmark:/config
+      - ./ingest:/books
+    depends_on:
+      - calibre-web-automated
